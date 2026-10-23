@@ -1,87 +1,247 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="Mainframe Digital builds practical AI systems, voice interfaces and workflow automation for modern businesses.">
-  <title>Mainframe Digital — Applied AI Systems</title><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
-  <style>
-    :root{color-scheme:dark}
-    *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;background:#000;color:#f0f0f0}
-    body{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .shell{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:42px 20px 75px}
-    .wrap{width:min(100%,760px)}
-    .terminal{background:#050505;border:1px solid #262626;border-radius:11px;overflow:hidden;box-shadow:0 25px 75px #000}
-    .top{height:40px;border-bottom:1px solid #242424;background:#0b0b0b;display:flex;align-items:center;gap:7px;padding:0 15px}
-    .dot{height:9px;width:9px;border-radius:50%;background:#37453d}
-    .top span:last-child{color:#68746b;font-size:11px;letter-spacing:.07em;margin:auto;transform:translateX(-19px)}
-    .screen{height:260px;overflow:hidden;padding:22px 25px;color:#a6b5ab;font-size:clamp(11px,2.2vw,13px);line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}
-    .line{min-height:1.85em}.green{color:#3be982}.signature{color:#b4e5c3}
-    .cursor{display:inline-block;width:8px;height:1.12em;background:#39e883;vertical-align:-.18em;animation:blink 1s steps(1) infinite}
-    @keyframes blink{50%{opacity:0}}
-    .branding{padding:30px 8px 0;text-align:center}.logo{display:flex;justify-content:center;align-items:center;gap:15px}.mark{width:47px;flex:none}
-    .word{font-size:clamp(15px,4.2vw,36px);letter-spacing:-.075em;white-space:nowrap}
-    .pixel-text{color:transparent;background-color:rgba(240,240,240,.92);background-image:radial-gradient(circle at .7px .7px,rgba(0,0,0,.22) .45px,transparent .58px);background-size:2px 2px;background-clip:text;-webkit-background-clip:text}
-    .word i{display:inline-block;width:.085em;height:.86em;background:#39e883;vertical-align:-.1em;margin-left:4px;animation:blink 1.2s steps(1) infinite}
-    .tag{color:#818b82;letter-spacing:.16em;font-size:10px;margin-top:19px}.rule{height:1px;background:linear-gradient(90deg,transparent,#333,transparent);max-width:370px;margin:29px auto 21px}.eyebrow{color:#6e786f;font-size:10px;letter-spacing:.17em}
-    .answer{display:inline-block;margin-top:16px;padding:10px 0;border:0;border-radius:7px}.answer-logo{display:block;width:min(225px,62vw);aspect-ratio:491/85;background-color:rgba(240,240,240,.92);background-image:radial-gradient(circle at .7px .7px,rgba(0,0,0,.22) .45px,transparent .58px);background-size:2px 2px;mask:url('answerline-logo.png') center/contain no-repeat;-webkit-mask:url('answerline-logo.png') center/contain no-repeat}
-    .intro{max-width:650px;margin:36px auto 0;text-align:left;border:1px solid #202520;border-radius:10px;background:linear-gradient(135deg,#080b09,#030403);padding:24px 26px}.intro h1{margin:0;color:#f0f0f0;font:500 clamp(21px,4vw,32px)/1.15 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:-.04em}.intro p{margin:14px 0 0;color:#a6b5ab;font:14px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.services{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.service{padding:14px 12px;border-top:1px solid #344238;color:#c7d7cc;font-size:11px;line-height:1.55}.service b{display:block;color:#3be982;font-weight:400;margin-bottom:7px}.status{display:flex;align-items:center;gap:8px;margin-top:21px;color:#7f9183;font-size:10px;letter-spacing:.08em}.status-dot{width:7px;height:7px;border-radius:50%;background:#39e883;box-shadow:0 0 12px #39e883}
-    .founder{display:grid;grid-template-columns:150px 1fr;gap:25px;align-items:center;max-width:650px;margin:18px auto 0;text-align:left;border-top:1px solid #202520;padding:28px 8px 0}.founder-photo{width:150px;height:150px;border-radius:50%;object-fit:cover;border:1px solid #344238;box-shadow:0 0 0 7px #080b09}.founder-kicker{color:#6e786f;font-size:10px;letter-spacing:.16em}.founder h2{margin:8px 0 9px;color:#f0f0f0;font-size:22px;font-weight:500;letter-spacing:-.04em}.founder p{margin:0;color:#a6b5ab;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.founder a{display:inline-block;margin-top:13px;color:#39e883;font-size:11px;text-decoration:none;border-bottom:1px solid #34543f;padding-bottom:3px}.founder a:hover{color:#b4e5c3}
-    .foot{position:fixed;bottom:18px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:center;gap:10px;color:#616b63;font-size:10px}
-    .foot button{background:none;border:0;color:#7a9783;cursor:pointer;font:inherit}.foot button:hover{color:#3be982}
-    @media(max-width:560px){.services{grid-template-columns:1fr}.intro{padding:20px 18px}.founder{grid-template-columns:1fr;text-align:center}.founder-photo{margin:auto}}
-    @media(max-width:480px){.shell{padding:25px 14px 65px}.screen{height:235px;padding:17px 16px}.mark{width:35px}.logo{gap:9px}.word{font-size:clamp(14px,4.2vw,22px)}.branding{padding-top:24px}.rule{margin-top:24px}.foot{left:14px;right:14px;bottom:12px}}
-    @media(prefers-reduced-motion:reduce){.cursor,.word i{animation:none}}
-    .nzbn-link{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(57,232,131,.6)}.nzbn-link:hover{color:#39e883}
-    .fit{margin-top:24px}.fit .founder-kicker{margin-bottom:8px}
-  </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mainframe Digital","url":"https://mainframe.kiwi","email":"kieran@mainframe.kiwi","identifier":{"@type":"PropertyValue","propertyID":"NZBN","value":"9429054046085"}}</script>
+  <title>Mainframe Digital — AI application engineers &amp; growth consultants, Auckland NZ</title>
+  <meta name="description" content="Mainframe Digital helps NZ businesses grow with practical AI: team AI setup and training, workflow automation, system integrations, websites and web apps, and AI growth strategy. Auckland-based.">
+  <link rel="canonical" href="https://mainframe.kiwi/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mainframe Digital">
+  <meta property="og:title" content="Mainframe Digital — Practical AI that grows your business">
+  <meta property="og:description" content="AI application engineers, product engineers and AI growth consultants helping NZ businesses grow revenue, improve customer experience and scale operations.">
+  <meta property="og:url" content="https://mainframe.kiwi/">
+  <meta property="og:image" content="https://mainframe.kiwi/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_NZ">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mainframe Digital — Practical AI that grows your business">
+  <meta name="twitter:description" content="AI setup, automation, integrations, websites and AI growth strategy for NZ businesses.">
+  <meta name="twitter:image" content="https://mainframe.kiwi/og-image.png">
+  <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/site.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mainframe Digital","url":"https://mainframe.kiwi","logo":"https://mainframe.kiwi/brand/icon-light@2x.png","email":"hello@mainframe.kiwi","founder":{"@type":"Person","name":"Kieran Stapleton","jobTitle":"Founder"},"address":{"@type":"PostalAddress","addressLocality":"Auckland","addressCountry":"NZ"},"areaServed":"NZ","identifier":{"@type":"PropertyValue","propertyID":"NZBN","value":"9429054046085"}}</script>
+  <script defer src="/site.js"></script>
 </head>
 <body>
-  <main class="shell">
-    <div class="wrap">
-      <section class="terminal" aria-label="Live Mainframe system terminal">
-        <div class="top"><b class="dot"></b><b class="dot"></b><b class="dot"></b><span>mainframe — zsh</span></div>
-        <div class="screen" id="screen" aria-live="off"><div class="line green">$ python3 mainframe.py <span class="cursor"></span></div></div>
-      </section>
-      <section class="branding">
-        <div class="logo"><svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true"><defs><pattern id="pixel-mark" width="2" height="2" patternUnits="userSpaceOnUse"><rect width="2" height="2" fill="#f0f0f0" fill-opacity=".92"/><circle cx=".7" cy=".7" r=".45" fill="#000" fill-opacity=".22"/></pattern></defs><rect x="5" y="5" width="90" height="90" rx="13" stroke="url(#pixel-mark)" stroke-width="7"/><rect x="17" y="17" width="66" height="66" rx="8" stroke="url(#pixel-mark)" stroke-width="6"/><path d="M29 69h19" stroke="url(#pixel-mark)" stroke-width="6" stroke-linecap="round"/></svg><div class="word"><span class="pixel-text">mainframe_digital</span><i></i></div></div>
-        <div class="tag">// WEBSITE COMING SOON</div><div class="rule"></div><div class="eyebrow">PART OF MAINFRAME DIGITAL</div>
-        <a class="answer" href="https://www.theanswerline.kiwi/" target="_blank" rel="noopener" aria-label="The Answer Line website"><span class="answer-logo" role="img" aria-label="answerline"></span></a>
-        <section class="intro" aria-labelledby="intro-title">
-          <h1 id="intro-title">We build practical AI that grows your business.</h1>
-          <p>We're AI application engineers, product engineers and AI growth consultants. Our background in sales and marketing means we understand the commercial side, and we can build the solutions too.</p>
-          <div class="services">
-            <div class="service"><b>01 / BUILD</b>AI applications and product engineering, from idea to live system.</div>
-            <div class="service"><b>02 / GROW</b>AI growth consulting and strategy tied to revenue and customer experience.</div>
-            <div class="service"><b>03 / AUTOMATE</b>Automations and quick wins that save time straight away.</div>
-          </div>
-          <div class="fit">
-            <div class="founder-kicker">// WHO WE WORK WITH</div>
-            <p>Our ideal client is a small or growing business looking to use AI to grow revenue, improve customer experience and scale its operations. You might be exploring AI for the first time and want people who understand your business, can identify the strongest opportunities and build the right solutions. We're particularly suited to owners who want a long-term view of how AI can support their growth, with practical steps to get there. We're also happy to help with smaller projects, quick automations and one-off improvements.</p>
-          </div>
-          <div class="status"><span class="status-dot" aria-hidden="true"></span>NEW SITE IN DEVELOPMENT — SELECT PROJECTS UNDERWAY</div>
-        </section>
-        <section class="founder" aria-labelledby="founder-title">
-          <img class="founder-photo" src="kieran-headshot-circle.png" alt="Kieran Stapleton, Founder of Mainframe Digital">
-          <div>
-            <div class="founder-kicker">// FOUNDER</div>
-            <h2 id="founder-title">Kieran Stapleton, Founder</h2>
-            <p>Based in Auckland, Kieran leads our work across AI applications, product engineering and growth strategy. We take projects end to end, from the business problem and architecture through to deployment, automation and live operations.</p>
-            <a href="mailto:kieran@mainframe.kiwi">START A CONVERSATION ↗</a>
-          </div>
-        </section>
-      </section>
+  <a class="skip" href="#main">Skip to content</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="pixel-mark" width="2" height="2" patternUnits="userSpaceOnUse"><rect width="2" height="2" fill="#f0f0f0" fill-opacity=".92"/><circle cx=".7" cy=".7" r=".45" fill="#000" fill-opacity=".22"/></pattern><symbol id="mf-mark" viewBox="0 0 100 100" fill="none"><rect x="5" y="5" width="90" height="90" rx="13" stroke="url(#pixel-mark)" stroke-width="7"/><rect x="17" y="17" width="66" height="66" rx="8" stroke="url(#pixel-mark)" stroke-width="6"/><path d="M29 69h19" stroke="url(#pixel-mark)" stroke-width="6" stroke-linecap="round"/></symbol></defs></svg>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Mainframe Digital home"><svg class="mark" aria-hidden="true"><use href="#mf-mark"/></svg><span class="word"><span class="pixel-text">mainframe_digital</span><i></i></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">MENU</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">How we work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a class="btn btn-primary btn-sm" href="#contact">Book a chat</a></li>
+      </ul>
     </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div>
+          <p class="kicker reveal"><b>●</b> Auckland, NZ · Practical AI for growing businesses</p>
+          <h1 class="reveal" style="--d:80ms">We build practical AI that <em>grows your business.</em></h1>
+          <p class="lede reveal" style="--d:160ms">We're AI application engineers, product engineers and AI growth consultants. Our background in sales and marketing means we understand the commercial side, and we can build the solutions too.</p>
+          <div class="cta-row reveal" style="--d:240ms">
+            <a class="btn btn-primary" href="#contact">Book a free chat →</a>
+            <a class="btn" href="#services">See our services</a>
+          </div>
+          <div class="meta reveal" style="--d:320ms">
+            <span><span class="status-dot" aria-hidden="true"></span>Taking on new projects</span>
+            <span>Registered NZ business</span>
+            <span>Small projects welcome</span>
+          </div>
+        </div>
+        <div class="terminal reveal" style="--d:200ms" aria-label="Animated Mainframe terminal">
+          <div class="top"><b class="dot"></b><b class="dot"></b><b class="dot"></b><span>mainframe — zsh</span></div>
+          <div class="screen" id="screen" aria-hidden="true"><div class="line green">$ python3 mainframe.py <span class="cursor"></span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POSITIONING -->
+    <section class="block" aria-labelledby="why-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">// Why Mainframe</p>
+          <h2 id="why-title">Commercial thinking and real engineering, in one team.</h2>
+          <p>Most businesses get either the strategy or the build. We do both, so the AI you invest in is tied to revenue, customer experience and time saved, not just a demo.</p>
+        </div>
+        <div class="pillars">
+          <div class="pillar reveal"><b>01 / BUILD</b><p>AI applications and product engineering, from idea to live system.</p></div>
+          <div class="pillar reveal" style="--d:100ms"><b>02 / GROW</b><p>AI growth consulting and strategy tied to revenue and customer experience.</p></div>
+          <div class="pillar reveal" style="--d:200ms"><b>03 / AUTOMATE</b><p>Automations and quick wins that save time straight away.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="block" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">// Services</p>
+          <h2 id="services-title">What we can do for you.</h2>
+          <p>Start with one thing or let us look at the whole picture. Every engagement is scoped to your business and quoted up front.</p>
+        </div>
+        <!-- PLACEHOLDER: all "From $TBC" prices below need real figures from Kieran before launch. -->
+        <div class="grid services-grid">
+          <article class="card reveal">
+            <span class="num">01</span>
+            <h3>AI setup &amp; training for teams</h3>
+            <p>Get your team using AI properly, safely and every day. We connect assistants like Claude or ChatGPT to the tools you already use and train your people to get real value from them.</p>
+            <ul><li>Assistant setup connected to your tools</li><li>Hands-on team training</li><li>Simple usage guidelines</li></ul>
+            <div class="price"><strong>From $TBC</strong><span class="tbc" title="Placeholder price">PRICE TBC</span></div>
+          </article>
+          <article class="card reveal" style="--d:80ms">
+            <span class="num">02</span>
+            <h3>Workflow automation</h3>
+            <p>Take the repetitive admin off your plate. We automate the follow-ups, data entry and handovers that eat your week, so your team can focus on customers.</p>
+            <ul><li>Quick wins in days, not months</li><li>Lead and enquiry follow-up</li><li>Reporting and admin on autopilot</li></ul>
+            <div class="price"><strong>From $TBC</strong><span class="tbc" title="Placeholder price">PRICE TBC</span></div>
+          </article>
+          <article class="card reveal" style="--d:160ms">
+            <span class="num">03</span>
+            <h3>System integrations</h3>
+            <p>Make your software talk to each other. Your CRM, calendar, accounting and job tools share information automatically, so nothing gets typed twice or lost.</p>
+            <ul><li>One source of truth</li><li>Fewer errors and double handling</li><li>Built around how you already run</li></ul>
+            <div class="price"><strong>From $TBC</strong><span class="tbc" title="Placeholder price">PRICE TBC</span></div>
+          </article>
+          <article class="card reveal">
+            <span class="num">04</span>
+            <h3>Websites &amp; web apps</h3>
+            <p>Fast, modern websites that win enquiries, and custom web apps and portals that run parts of your business, with AI built in where it helps.</p>
+            <ul><li>Business websites that convert</li><li>Customer and staff portals</li><li>AI features built in</li></ul>
+            <div class="price"><strong>From $TBC</strong><span class="tbc" title="Placeholder price">PRICE TBC</span></div>
+          </article>
+          <article class="card reveal" style="--d:80ms">
+            <span class="num">05</span>
+            <h3>AI growth consulting &amp; strategy</h3>
+            <p>Not sure where AI fits? We look at your business with a commercial eye, find the strongest opportunities and map practical steps to grow revenue and improve customer experience.</p>
+            <ul><li>Opportunity review</li><li>Prioritised AI roadmap</li><li>Ongoing advisory</li></ul>
+            <div class="price"><strong>From $TBC</strong><span class="tbc" title="Placeholder price">PRICE TBC</span></div>
+          </article>
+          <article class="card card-cta reveal" style="--d:160ms">
+            <span class="num">+</span>
+            <h3>Not sure where to start?</h3>
+            <p>Tell us what's slowing you down. We'll suggest the simplest thing that would make the biggest difference.</p>
+            <a class="btn btn-primary" href="#contact">Book a free chat →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO WE WORK WITH -->
+    <section class="block" id="fit" aria-labelledby="fit-title">
+      <div class="container fit">
+        <div class="section-head reveal" style="margin:0">
+          <p class="kicker">// Who we work with</p>
+          <h2 id="fit-title">Built for small and growing NZ businesses.</h2>
+        </div>
+        <div class="fit-copy reveal" style="--d:100ms">
+          <p>Our ideal client is a small or growing business looking to use AI to grow revenue, improve customer experience and scale its operations.</p>
+          <p>You might be exploring AI for the first time and want people who understand your business, can identify the strongest opportunities and build the right solutions. We're particularly suited to owners who want a long-term view of how AI can support their growth, with practical steps to get there.</p>
+          <p>We're also happy to help with smaller projects, quick automations and one-off improvements.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section class="block" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">// Our work</p>
+          <h2 id="work-title">Things we've built.</h2>
+        </div>
+        <div class="grid cases-grid">
+          <article class="card case-real reveal">
+            <span class="tag">OUR PRODUCT · LIVE</span>
+            <span class="answer-logo" role="img" aria-label="The Answer Line"></span>
+            <h3>The Answer Line: every call answered, day or night</h3>
+            <p>An AI phone answering service for NZ businesses, built for trades and owner-operators who can't get to the phone. It picks up every call in a natural Kiwi voice, captures what the caller needs, where they are and how urgent it is, then texts the job straight to the owner.</p>
+            <ul>
+              <li>Base package: answer, capture and text the job</li>
+              <li>Custom package: books appointments into your calendar, loads your CRM or job software, and sends confirmations and reminders</li>
+              <li>Answers as the business and never guesses prices or makes promises</li>
+            </ul>
+            <a class="link" href="https://www.theanswerline.kiwi/" target="_blank" rel="noopener">VISIT THEANSWERLINE.KIWI ↗</a>
+          </article>
+          <!-- PLACEHOLDER: case study slot 2. Replace with a real client project (with permission) before launch. Do not invent clients or results. -->
+          <article class="card case-placeholder reveal" style="--d:100ms">
+            <span class="tag">PLACEHOLDER</span>
+            <h3>Case study coming soon</h3>
+            <p>A client project write-up will go here.</p>
+          </article>
+          <!-- PLACEHOLDER: case study slot 3. Replace with a real client project (with permission) before launch. -->
+          <article class="card case-placeholder reveal" style="--d:200ms">
+            <span class="tag">PLACEHOLDER</span>
+            <h3>Case study coming soon</h3>
+            <p>A client project write-up will go here.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="block" id="process" aria-labelledby="process-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">// How we work</p>
+          <h2 id="process-title">Simple, practical, no surprises.</h2>
+        </div>
+        <ol class="steps">
+          <li class="step reveal"><h3>Discover</h3><p>A free chat about your business, your goals and what's slowing you down. We listen first.</p></li>
+          <li class="step reveal" style="--d:100ms"><h3>Plan</h3><p>We find the strongest opportunities and give you a clear plan with a fixed scope and price up front.</p></li>
+          <li class="step reveal" style="--d:200ms"><h3>Build</h3><p>We build, test and launch it with you, keeping you in the loop with working results, not jargon.</p></li>
+          <li class="step reveal" style="--d:300ms"><h3>Support</h3><p>We train your team, look after what we've built and keep improving it as your business grows.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="block" id="about" aria-labelledby="about-title">
+      <div class="container about">
+        <picture class="reveal">
+          <source srcset="/kieran-headshot-480.webp" type="image/webp">
+          <img class="about-photo" src="/email/headshot-kieran@2x.png" width="240" height="240" alt="Kieran Stapleton, Founder of Mainframe Digital" loading="lazy">
+        </picture>
+        <div class="reveal" style="--d:100ms">
+          <p class="kicker">// About us</p>
+          <h2 id="about-title">Kieran Stapleton</h2>
+          <p class="role">FOUNDER, MAINFRAME DIGITAL</p>
+          <p>Based in Auckland, Kieran leads our work across AI applications, product engineering and growth strategy. We take projects end to end, from the business problem and architecture through to deployment, automation and live operations.</p>
+          <p>With a background in sales and marketing, we start with the commercial outcome, then build the technology to get there.</p>
+          <a class="btn" href="#contact">Start a conversation ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <!-- NOTE: hello@mainframe.kiwi must exist in Google Workspace (as a user, alias or group) before this site goes live. -->
+    <section class="block contact" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <p class="kicker reveal">// Get in touch</p>
+        <h2 id="contact-title" class="reveal" style="--d:80ms">Let's find where AI can grow your business.</h2>
+        <p class="reveal" style="--d:160ms">Book a free, no-pressure chat. Tell us about your business and we'll come back with practical ideas, whether it's a big build or a quick win.</p>
+        <a class="email reveal" style="--d:240ms" href="mailto:hello@mainframe.kiwi?subject=Let's%20chat">hello@mainframe.kiwi</a>
+        <div class="cta-row reveal" style="--d:300ms"><a class="btn btn-primary" href="mailto:hello@mainframe.kiwi?subject=Book%20a%20chat">Book a free chat →</a></div>
+      </div>
+    </section>
   </main>
+
   <footer class="foot">
-    <span>MAINFRAME DIGITAL © 2026 · <a class="nzbn-link" href="https://www.nzbn.govt.nz/mynzbn/nzbndetails/9429054046085" target="_blank" rel="noopener">NZBN 9429054046085</a></span>
-    <button id="restart" type="button">↻ RESTART TERMINAL</button>
+    <div class="container foot-inner">
+      <span>MAINFRAME DIGITAL © 2026 · Auckland, NZ · <a class="nzbn-link" href="https://www.nzbn.govt.nz/mynzbn/nzbndetails/9429054046085" target="_blank" rel="noopener">NZBN 9429054046085</a></span>
+      <nav aria-label="Footer"><a href="#services">Services</a><a href="#work">Work</a><a href="#contact">Contact</a><a href="https://www.theanswerline.kiwi/" target="_blank" rel="noopener">The Answer Line ↗</a></nav>
+    </div>
   </footer>
-  <script>
-    (()=>{'use strict';const screen=document.getElementById('screen');const routine=['$ python3 mainframe.py','[ok] core services initialized','[ok] loading intelligent systems','> checking agent runtime','[ok] voice infrastructure connected','> syncing deployment pipeline','[ok] API endpoints responding','> compiling automation workflows','[ready] mainframe services active','> awaiting next connection'];const signatures=['// engineered by kieran stapleton','system.architect = "kieran stapleton"','built_by: kieran stapleton'];let generation=0;const sleep=ms=>new Promise(r=>setTimeout(r,ms));async function start(){const token=++generation;screen.replaceChildren();let routineIndex=0,signatureIndex=0,regularSinceSignature=0;while(token===generation){let line,isSignature=false;if(regularSinceSignature>=7){line=signatures[signatureIndex++%signatures.length];regularSinceSignature=0;isSignature=true}else{line=routine[routineIndex++%routine.length];regularSinceSignature++}const row=document.createElement('div');row.className='line'+(isSignature?' signature':line.startsWith('[ok]')||line.startsWith('[ready]')?' green':'');screen.appendChild(row);const text=document.createElement('span');row.appendChild(text);const caret=document.createElement('span');caret.className='cursor';row.appendChild(caret);for(const ch of line){if(token!==generation)return;text.textContent+=ch;await sleep(19+Math.random()*25)}await sleep(isSignature?1100:420);caret.remove();while(screen.children.length>8)screen.firstChild.remove();await sleep(130)}}document.getElementById('restart').addEventListener('click',()=>{start()});if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){screen.textContent='[ready] mainframe services active\n// engineered by kieran stapleton'}else start();})();
-  </script>
 </body>
 </html>
