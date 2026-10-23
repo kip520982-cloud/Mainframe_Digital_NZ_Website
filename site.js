@@ -142,7 +142,7 @@ if(form){
       if(r.ok&&j.ok){location.href=j.next||('/thanks?name='+encodeURIComponent(data.first_name));return}
       if(j.errors){Object.entries(j.errors).forEach(([k,m])=>setErr(k,m));const s1=['first_name','business','email','mobile','industry'].some(k=>j.errors[k]);show(s1?1:2);focusFirst(j.errors)}
       status.textContent=j.error||'Please check the highlighted fields.';
-    }catch(err){status.textContent='We couldn\'t send that just now. Please try again, or email hello@mainframe.kiwi.'}
+    }catch(err){status.textContent='We couldn\'t send that just now. Please try again, or email kieran@mainframe.kiwi.'}
     form.classList.remove('sending');
   });
 }

@@ -190,7 +190,7 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return reply(res, 405, { ok: false, error: 'Method not allowed' }); }
   if (!sameOrigin(req)) return reply(res, 403, { ok: false, error: 'Invalid origin' });
   const ip = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '').split(',')[0].trim() || 'unknown';
-  if (limited(ip)) return reply(res, 429, { ok: false, error: 'Too many requests. Please try again in a few minutes, or email hello@mainframe.kiwi.' });
+  if (limited(ip)) return reply(res, 429, { ok: false, error: 'Too many requests. Please try again in a few minutes, or email kieran@mainframe.kiwi.' });
 
   let body, form;
   try { ({ body, form } = await readBody(req)); } catch { return reply(res, 400, { ok: false, error: 'Invalid request body' }); }
