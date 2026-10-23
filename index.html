@@ -259,13 +259,70 @@
       </div>
     </section>
 
-    <!-- CASE STUDIES (stacked cards) -->
+    <!-- OUR WORK: laptop showcase (real full-page screenshots in /showcase/) + written case studies -->
     <section class="block" id="work" aria-labelledby="work-title">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="label">Our work</p>
-          <h2 id="work-title">Things we've <span class="accent">built.</span></h2>
+      <div class="showcase reveal" data-showcase>
+        <div class="sc-glow" aria-hidden="true"></div>
+        <svg class="sc-lines sc-left" viewBox="0 0 400 800" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="scl" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#39e883" stop-opacity=".55"/><stop offset="1" stop-color="#39e883" stop-opacity="0"/></linearGradient></defs>
+          <path d="M400 120C250 150 120 260 -20 520"/><path d="M400 250C270 290 150 400 -20 700"/><path d="M400 420C300 470 190 560 60 820"/><path d="M330 -20C300 160 200 300 -20 380"/>
+        </svg>
+        <svg class="sc-lines sc-right" viewBox="0 0 400 800" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M400 120C250 150 120 260 -20 520"/><path d="M400 250C270 290 150 400 -20 700"/><path d="M400 420C300 470 190 560 60 820"/><path d="M330 -20C300 160 200 300 -20 380"/>
+        </svg>
+        <div class="sc-dots sc-dots-l" aria-hidden="true"></div><div class="sc-dots sc-dots-r" aria-hidden="true"></div>
+
+        <div class="sc-head">
+          <p class="label center">Our work</p>
+          <h2 id="work-title">Built by <span class="accent">Mainframe.</span></h2>
         </div>
+
+        <div class="laptop">
+          <div class="lid">
+            <span class="cam" aria-hidden="true"></span>
+            <div class="lap-screen">
+              <div class="sf">
+                <div class="sf-tabsrow">
+                  <span class="sf-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <div class="sf-tabs" role="tablist" aria-label="Projects we've built">
+                    <button class="sf-tab" role="tab" id="sct-tal" aria-controls="scp-tal" aria-selected="true" tabindex="0" data-domain="theanswerline.kiwi"><span class="fav fav-tal" aria-hidden="true"></span><span class="t">The Answer Line</span></button>
+                    <button class="sf-tab" role="tab" id="sct-ids" aria-controls="scp-ids" aria-selected="false" tabindex="-1" data-domain="industrydjschool.com"><span class="fav fav-ids" aria-hidden="true"></span><span class="t">Industry DJ School</span></button>
+                    <button class="sf-tab" role="tab" id="sct-mf" aria-controls="scp-mf" aria-selected="false" tabindex="-1" data-domain="mainframe.kiwi"><span class="fav fav-mf" aria-hidden="true"></span><span class="t">Mainframe Digital</span></button>
+                  </div>
+                </div>
+                <div class="sf-bar" aria-hidden="true">
+                  <span class="sf-nav"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></span>
+                  <span class="sf-url"><svg viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="6.5" rx="1.4"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7"/></svg><b class="sf-domain">theanswerline.kiwi</b></span>
+                  <span class="sf-acts"><svg viewBox="0 0 16 16"><path d="M8 2v8M5 5l3-3 3 3M3.5 8.5v5h9v-5"/></svg><svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg></span>
+                </div>
+              </div>
+              <div class="sf-view">
+                <div class="sf-panel" role="tabpanel" id="scp-tal" aria-labelledby="sct-tal">
+                  <picture><source srcset="/showcase/answer-line.webp" type="image/webp"><img src="/showcase/answer-line.jpg" width="1200" height="3333" alt="Full-page screenshot of theanswerline.kiwi, the website for The Answer Line by Mainframe Digital." loading="lazy" decoding="async"></picture>
+                </div>
+                <div class="sf-panel" role="tabpanel" id="scp-ids" aria-labelledby="sct-ids" hidden>
+                  <picture><source srcset="/showcase/industry-dj-school.webp" type="image/webp"><img src="/showcase/industry-dj-school.jpg" width="1200" height="2938" alt="Full-page screenshot of industrydjschool.com, the public website of Industry DJ School." loading="lazy" decoding="async"></picture>
+                </div>
+                <div class="sf-panel" role="tabpanel" id="scp-mf" aria-labelledby="sct-mf" hidden>
+                  <picture><source srcset="/showcase/mainframe-digital.webp" type="image/webp"><img src="/showcase/mainframe-digital.jpg" width="1200" height="3333" alt="Full-page screenshot of the Mainframe Digital homepage." loading="lazy" decoding="async"></picture>
+                </div>
+              </div>
+              <div class="dock" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="sep"></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="base" aria-hidden="true"><span></span></div>
+        </div>
+
+        <div class="sc-cap">
+          <p class="sc-cap-text" data-for="sct-tal"><b>The Answer Line</b> Our own AI phone answering service for NZ businesses. <a href="https://www.theanswerline.kiwi/" target="_blank" rel="noopener">theanswerline.kiwi&nbsp;↗</a></p>
+          <p class="sc-cap-text" data-for="sct-ids" hidden><b>Industry DJ School</b> The school's public site. The CRM, learning platform and app we engineer behind it are private. <a href="https://www.industrydjschool.com/" target="_blank" rel="noopener">industrydjschool.com&nbsp;↗</a></p>
+          <p class="sc-cap-text" data-for="sct-mf" hidden><b>Mainframe Digital</b> This website, designed and built in-house. <a href="#top">mainframe.kiwi&nbsp;↑</a></p>
+          <div class="sc-dotsnav" aria-hidden="true"><button tabindex="-1" data-i="0"></button><button tabindex="-1" data-i="1"></button><button tabindex="-1" data-i="2"></button></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <p class="label sc-sub">Case studies</p>
         <div class="stack">
           <article class="case case-real" style="--i:0">
             <div>

@@ -41,6 +41,39 @@ flow.addEventListener('pointerenter',()=>{if(auto){clearTimeout(timer);tabs[cur]
 flow.addEventListener('pointerleave',()=>{if(auto&&seen)arm()});
 if('IntersectionObserver' in window){new IntersectionObserver(es=>{const v=es[0].isIntersecting;if(v&&!seen){seen=true;show(0)}else if(v&&auto)arm();else if(!v){clearTimeout(timer);tabs[cur].classList.remove('timing')}},{threshold:.35}).observe(flow)}else{seen=true;show(0)}}
 
+/* our-work laptop showcase: instant tab cut, then the page scrolls inside the screen; pauses off-screen, while a tab has keyboard focus, and for reduced motion */
+const sc=$('[data-showcase]');
+if(sc){const tabs=$$('.sf-tab',sc),n=tabs.length,panels=tabs.map(t=>document.getElementById(t.getAttribute('aria-controls'))),caps=$$('.sc-cap-text',sc),dots=$$('.sc-dotsnav button',sc),domain=$('.sf-domain',sc),view=$('.sf-view',sc);
+let cur=0,anim=null,timer=null,gen=0,started=false,visible=false,hover=false;const HOLD_TOP=900,HOLD_END=1200;
+const img=i=>panels[i].querySelector('img');
+const running=()=>!reduce&&started&&visible&&!hover&&!document.hidden;
+const stopAnim=()=>{clearTimeout(timer);if(anim){anim.cancel();anim=null}};
+const next=()=>show(cur+1);
+const run=()=>{const tok=++gen,im=img(cur);
+ const go=()=>{if(tok!==gen)return;const d=Math.max(0,im.getBoundingClientRect().height-view.clientHeight);
+  if(d<4){if(running())timer=setTimeout(next,4000);return}
+  const dur=Math.min(7000,Math.max(3800,d/view.clientHeight*2400));
+  anim=im.animate([{transform:'translateY(0)'},{transform:`translateY(${-d}px)`}],{duration:dur,delay:HOLD_TOP,easing:'cubic-bezier(.45,0,.35,1)',fill:'forwards'});
+  anim.onfinish=()=>{if(tok===gen&&running())timer=setTimeout(next,HOLD_END)};
+  if(!running())anim.pause()};
+ if(im.complete&&im.naturalHeight)go();else im.addEventListener('load',go,{once:true})};
+const show=(i,focus)=>{stopAnim();cur=(i+n)%n;
+ tabs.forEach((t,k)=>{const on=k===cur;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;panels[k].hidden=!on;if(caps[k])caps[k].hidden=!on;if(dots[k])dots[k].classList.toggle('on',on)});
+ panels[cur].scrollTop=0;domain.textContent=tabs[cur].dataset.domain;if(focus)tabs[cur].focus();if(!reduce)run()};
+const sync=()=>{if(!started||reduce)return;if(running()){if(anim&&anim.playState==='paused')anim.play();else if(!anim||anim.playState==='finished'){clearTimeout(timer);timer=setTimeout(next,HOLD_END)}}else{clearTimeout(timer);if(anim&&anim.playState==='running')anim.pause()}};
+const loadAll=()=>panels.forEach(p=>{const im=p.querySelector('img');if(im.loading==='lazy')im.loading='eager'});
+tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));t.addEventListener('keydown',e=>{const k={ArrowRight:1,ArrowLeft:-1}[e.key];if(k){e.preventDefault();show(cur+k,true)}else if(e.key==='Home'){e.preventDefault();show(0,true)}else if(e.key==='End'){e.preventDefault();show(n-1,true)}})});
+dots.forEach((d,i)=>d.addEventListener('click',()=>show(i)));
+const lap=$('.laptop',sc);
+lap.addEventListener('focusin',e=>{if(e.target.matches(':focus-visible')){hover=true;sync()}});lap.addEventListener('focusout',e=>{if(!lap.contains(e.relatedTarget)){hover=false;sync()}});
+document.addEventListener('visibilitychange',sync);
+let rz;window.addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(started&&!reduce)show(cur)},300)});
+if(reduce)sc.classList.add('is-static');
+show(0);stopAnim();
+if('IntersectionObserver' in window){new IntersectionObserver(es=>{if(es[0].isIntersecting)loadAll()},{rootMargin:'800px 0px'}).observe(sc);
+ new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible&&!started){started=true;if(!reduce)show(cur)}else sync()},{threshold:.3}).observe(view)}
+else{loadAll();visible=true;started=true;if(!reduce)show(0)}}
+
 /* nav state on scroll */
 let ticking=false;const onScroll=()=>{ticking=false;nav.classList.toggle('scrolled',window.scrollY>10)};
 window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});onScroll();
