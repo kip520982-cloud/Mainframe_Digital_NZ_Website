@@ -482,7 +482,7 @@ html:not(.js) .enq-steps{display:none}
   .enq-free,.enq-status{text-align:left}
   .sc-band{padding-bottom:90px}
   .ty-case{grid-template-columns:1fr}
-  body.has-sticky .foot{padding-bottom:96px}
+  body.has-sticky{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 }
 @media (max-width:400px){.chks{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.sticky-cta,.sticky-cta.show,.sc-bar i{transition:none}}
@@ -650,3 +650,15 @@ html:not(.js) .enq-steps{display:none}
 .grad .w{background:linear-gradient(100deg,#39e883 0%,#b4e5c3 45%,#39e883 90%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:sheen 8s linear infinite}
 .pixel-text .w{background-color:rgba(240,240,240,.92);background-image:radial-gradient(circle at .7px .7px,rgba(0,0,0,.22) .45px,transparent .58px);background-size:2px 2px;-webkit-background-clip:text;background-clip:text;color:transparent}
 @supports not ((background-clip:text) or (-webkit-background-clip:text)){.grad,.grad .w{background:none;color:var(--green);-webkit-text-fill-color:currentColor;animation:none}.pixel-text,.pixel-text .w{background:none;color:rgba(240,240,240,.92)}}
+/* compact service cards on phones (desktop unchanged) */
+@media (max-width:640px){
+  .services-grid{gap:12px}
+  .svc{padding:20px 20px 18px}
+  .svc .num{top:20px;right:20px}
+  .svc-icon{height:28px;margin-bottom:12px}
+  .svc-icon svg,.svc-icon.pair svg:first-child{width:28px;height:28px}
+  .svc h3{font-size:19px;margin-bottom:6px}
+  .svc p{font-size:14px;line-height:1.5}
+  .svc ul{display:none}
+  .svc-links{padding-top:14px}
+}
