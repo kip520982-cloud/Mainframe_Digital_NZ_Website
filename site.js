@@ -59,84 +59,43 @@ $$('video[data-autoloop]').forEach(v=>{if(reduce){v.removeAttribute('autoplay');
 let ticking=false;const onScroll=()=>{ticking=false;nav.classList.toggle('scrolled',window.scrollY>10)};
 window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});onScroll();
 
-/* terminal */
-const screen=$('#screen');if(!screen)return;
-const routine=['$ python3 mainframe.py','[ok] core services initialized','> mapping business workflows','[ok] AI assistants connected','> syncing your tools','[ok] automations running','> answering every call','[ok] systems integrated','[ready] mainframe services active','> awaiting next project'];
-const signatures=['// engineered by mainframe digital','founder = "kieran stapleton"','built_in: auckland, nz'];
-let gen=0;const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-async function start(){const t=++gen;screen.replaceChildren();let ri=0,si=0,since=0;while(t===gen){let line,sig=false;if(since>=7){line=signatures[si++%signatures.length];since=0;sig=true}else{line=routine[ri++%routine.length];since++}
-const row=document.createElement('div');row.className='line'+(sig?' signature':line.startsWith('[ok]')||line.startsWith('[ready]')?' green':'');screen.appendChild(row);
-const text=document.createElement('span');row.appendChild(text);const caret=document.createElement('span');caret.className='cursor';row.appendChild(caret);
-for(const ch of line){if(t!==gen)return;text.textContent+=ch;await sleep(19+Math.random()*25)}
-await sleep(sig?1100:420);caret.remove();while(screen.children.length>8)screen.firstChild.remove();await sleep(130)}}
-if(reduce){screen.textContent='[ready] mainframe services active\n// engineered by mainframe digital'}
-else{new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){start();o.disconnect()}}).observe(screen)}
-})();
+/* hero: background terminal (types short lines, older ones fade) */
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const hero=$('.hero');let heroOn=true;
+if(hero&&'IntersectionObserver' in window)new IntersectionObserver(e=>{heroOn=e[0].isIntersecting;document.dispatchEvent(new Event('mf:hero'))}).observe(hero);
+const waitVisible=()=>new Promise(r=>{const ok=()=>heroOn&&!document.hidden;if(ok())return r();const f=()=>{if(ok()){document.removeEventListener('mf:hero',f);document.removeEventListener('visibilitychange',f);r()}};document.addEventListener('mf:hero',f);document.addEventListener('visibilitychange',f)});
+const ht=$('#ht-lines');
+const HT=['> invoice raised for Lux Weddings','> lead qualified → booked','> deploying ios build 1.4.2','[ok] crm synced: 24 contacts','> quote sent to Kauri Builders','> payment reminder booked for day 7','[ok] new enquiry → pipeline','> transcribing call from 021 ··· 0142','> follow-up email drafted','[ok] xero: 3 invoices reconciled','> building android release 2.0.1','> site deployed: yourbusiness.co.nz','[ok] booking confirmed · Tue 10:30','> summarising inbox for Kieran','> assistant answered 12 questions','[ok] docs signed → filed in dropbox'];
+if(ht&&!reduce&&getComputedStyle(ht.parentNode.parentNode).display!=='none'){
+ const N=Math.max(6,Math.floor(ht.clientHeight/26));const rows=[];for(let k=0;k<N;k++){const d=document.createElement('div');d.className='ht-line';ht.appendChild(d);rows.push(d)}
+ const KEEP=Math.min(7,N-2);(async()=>{let r=0,li=0;for(;;){await waitVisible();const row=rows[r%N];row.className='ht-line';row.textContent='';const line=HT[li++%HT.length];if(line.startsWith('[ok]'))row.classList.add('ok');
+  const t=document.createElement('span');const c=document.createElement('span');c.className='cursor';row.append(t,c);
+  for(const ch of line){t.textContent+=ch;await sleep(28+Math.random()*34)}await sleep(500);c.remove();
+  rows[(r+N-KEEP)%N].classList.add('out');r++;await sleep(350)}})()}
+else if(ht&&reduce){['> lead qualified → booked','[ok] crm synced: 24 contacts','> invoice raised for Lux Weddings'].forEach(l=>{const d=document.createElement('div');d.className='ht-line'+(l.startsWith('[ok]')?' ok':'');d.textContent=l;ht.appendChild(d)})}
 
-/* lead funnel: 2-step consultation form, ?service= prefill, UTM capture, sticky mobile CTA */
-(()=>{'use strict';
-const $=(s,c=document)=>c.querySelector(s),$$=(s,c=document)=>[...c.querySelectorAll(s)];
-const qs=new URLSearchParams(location.search);
-// remember UTMs for the session so they survive moving between pages
-const UTM=['utm_source','utm_medium','utm_campaign'];
-try{UTM.forEach(k=>{if(qs.get(k))sessionStorage.setItem(k,qs.get(k).slice(0,100))});if(!sessionStorage.getItem('mf_ref')&&document.referrer&&!document.referrer.startsWith(location.origin))sessionStorage.setItem('mf_ref',document.referrer.slice(0,300))}catch(e){}
-const ss=k=>{try{return sessionStorage.getItem(k)||''}catch(e){return ''}};
-window.mfTracking=()=>({utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),page:location.href.slice(0,300),referrer:ss('mf_ref')});
-
-const form=$('#enquiry');
-if(form){
-  const steps=$$('.enq-step',form),marks=$$('.enq-steps li',form),status=$('.enq-status',form);
-  const SERV=['apps','business','website','automation','ai','unsure'];
-  const show=n=>{steps.forEach(s=>s.hidden=s.dataset.step!==String(n));marks.forEach(m=>m.classList.toggle('on',m.dataset.for===String(n)))};
-  show(1);
-  const setErr=(name,msg)=>{const e=$('#e-'+name,form);if(e)e.textContent=msg||'';
-    const fields=name==='interests'?$$('[name=interests]',form):[form.elements[name]];fields.forEach(f=>{if(!f)return;if(msg){f.setAttribute('aria-invalid','true');if(e&&f.type!=='checkbox')f.setAttribute('aria-describedby',e.id)}else f.removeAttribute('aria-invalid')})};
-  const val=n=>(form.elements[n]&&form.elements[n].value||'').trim();
-  const check1=()=>{const errs={};
-    if(!val('first_name'))errs.first_name='Please add your first name.';
-    if(!val('business'))errs.business='Please add your business name.';
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('email')))errs.email='Please add a valid email address.';
-    if(val('mobile')&&!/^[+()\d\s-]{6,20}$/.test(val('mobile')))errs.mobile='That mobile number doesn\'t look right.';
-    if(!val('industry'))errs.industry='Please choose an industry.';
-    ['first_name','business','email','mobile','industry'].forEach(k=>setErr(k,errs[k]));return errs};
-  const check2=()=>{const errs={};if(!$$('[name=interests]:checked',form).length)errs.interests='Please choose at least one option.';setErr('interests',errs.interests);return errs};
-  const focusFirst=errs=>{const k=Object.keys(errs)[0];if(!k)return;const f=k==='interests'?$('[name=interests]',form):form.elements[k];f&&f.focus()};
-  $('[data-next]',form).addEventListener('click',()=>{const e=check1();if(Object.keys(e).length)return focusFirst(e);show(2);$('[name=interests]',form).focus({preventScroll:true});form.scrollIntoView({block:'start',behavior:'smooth'})});
-  $('[data-back]',form).addEventListener('click',()=>{show(1);form.elements.first_name.focus()});
-  form.addEventListener('change',e=>{if(e.target.name==='interests')setErr('interests','')});
-  form.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'&&!$('.enq-step[data-step="1"]',form).hidden){e.preventDefault();$('[data-next]',form).click()}});
-  // prefill
-  const pre=s=>{if(!SERV.includes(s))return;form.elements.service.value=s;const box=$(`[name=interests][value="${s}"]`,form);if(box)box.checked=true};
-  pre(qs.get('service'));
-  const t=window.mfTracking();Object.keys(t).forEach(k=>{if(form.elements[k])form.elements[k].value=t[k]});
-  if(qs.get('error'))status.textContent='Something in the form needs another look. Please check and send again.';
-  // service-card links: prefill without reloading when already on the homepage
-  $$('a[data-service]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();pre(a.dataset.service);history.replaceState(null,'','/?service='+a.dataset.service+'#contact');show(1);$('#contact').scrollIntoView({behavior:'smooth'});setTimeout(()=>form.elements.first_name.focus({preventScroll:true}),600)}));
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();
-    const e1=check1();if(Object.keys(e1).length){show(1);return focusFirst(e1)}
-    const e2=check2();if(Object.keys(e2).length)return focusFirst(e2);
-    const fd=new FormData(form),data={};
-    for(const [k,v] of fd.entries()){if(k==='interests')(data.interests=data.interests||[]).push(v);else data[k]=v}
-    data.page=location.href.slice(0,300);
-    form.classList.add('sending');status.textContent='';
-    try{
-      const r=await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-      const j=await r.json().catch(()=>({}));
-      if(r.ok&&j.ok){location.href=j.next||('/thanks?name='+encodeURIComponent(data.first_name));return}
-      if(j.errors){Object.entries(j.errors).forEach(([k,m])=>setErr(k,m));const s1=['first_name','business','email','mobile','industry'].some(k=>j.errors[k]);show(s1?1:2);focusFirst(j.errors)}
-      status.textContent=j.error||'Please check the highlighted fields.';
-    }catch(err){status.textContent='We couldn\'t send that just now. Please try again, or email hello@mainframe.kiwi.'}
-    form.classList.remove('sending');
-  });
-}
-
-// sticky mobile CTA: after the hero, hidden while the form is on screen
-const sticky=$('.sticky-cta'),hero=$('.hero'),contact=$('#contact');
-if(sticky&&hero&&contact&&'IntersectionObserver' in window){
-  let pastHero=false,atContact=false;const upd=()=>{const on=pastHero&&!atContact;sticky.classList.toggle('show',on);document.body.classList.toggle('has-sticky',on||pastHero)};
-  new IntersectionObserver(([en])=>{pastHero=!en.isIntersecting&&en.boundingClientRect.top<0;upd()}).observe(hero);
-  new IntersectionObserver(([en])=>{atContact=en.isIntersecting;upd()},{rootMargin:'0px 0px -10% 0px'}).observe(contact);
-  sticky.addEventListener('click',()=>{const f=$('#enquiry');if(f)setTimeout(()=>f.elements.first_name.focus({preventScroll:true}),700)});
-}
+/* hero: rotating window (services, same order as the cards below) */
+const hw=$('.hw');
+if(hw){const stage=$('.hw-stage',hw),slides=$$('.hw-slide',hw),title=$('.hw-title',hw),lab=$('.hw-label'),dots=$$('.hw-dots button'),num=$('.hw-n'),pauseBtn=$('.hw-pause');
+ const fit=()=>stage.style.setProperty('--hs',(stage.clientWidth/460).toFixed(4));fit();
+ if('ResizeObserver' in window)new ResizeObserver(fit).observe(stage);else window.addEventListener('resize',fit);
+ let cur=0,timer=null,paused=reduce,hover=false;const DUR=4600;
+ const runTxt=$('.wire-txt',hw);const RUNS=['Quote sent to Kauri Builders','Invoice INV-0142 raised in Xero','Customer updated in HubSpot','Payment reminder booked for day 7'];let runGen=0,runI=0;
+ const typeRun=async()=>{if(!runTxt||reduce)return;const g=++runGen;for(;;){const s=RUNS[runI++%RUNS.length];runTxt.textContent='';for(const ch of s){if(g!==runGen)return;runTxt.textContent+=ch;await sleep(30+Math.random()*30)}await sleep(1300);if(g!==runGen)return}};
+ const show=i=>{cur=(i+slides.length)%slides.length;const s=slides[cur];
+  slides.forEach((x,k)=>{const on=k===cur;x.classList.toggle('on',on);x.setAttribute('aria-hidden',String(!on))});
+  dots.forEach((d,k)=>d.setAttribute('aria-current',String(k===cur)));
+  if(num)num.textContent=String(cur+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+  title.textContent=s.dataset.title;
+  if(lab){lab.classList.add('swap');setTimeout(()=>{$('b',lab).textContent=s.dataset.label;$('small',lab).textContent=s.dataset.sub;lab.classList.remove('swap')},reduce?0:300)}
+  if(s.querySelector('.wire-txt'))typeRun();else runGen++;
+  arm()};
+ const arm=()=>{clearTimeout(timer);if(paused||hover||!heroOn||document.hidden)return;timer=setTimeout(()=>show(cur+1),DUR)};
+ dots.forEach((d,k)=>d.addEventListener('click',()=>show(k)));
+ pauseBtn.addEventListener('click',()=>{paused=!paused;pauseBtn.setAttribute('aria-pressed',String(paused));pauseBtn.setAttribute('aria-label',paused?'Play slideshow':'Pause slideshow');arm()});
+ if(reduce){pauseBtn.setAttribute('aria-pressed','true');pauseBtn.setAttribute('aria-label','Play slideshow')}
+ hw.addEventListener('pointerenter',()=>{hover=true;clearTimeout(timer)});hw.addEventListener('pointerleave',()=>{hover=false;arm()});
+ hw.parentNode.addEventListener('focusin',()=>{hover=true;clearTimeout(timer)});hw.parentNode.addEventListener('focusout',()=>{hover=false;arm()});
+ document.addEventListener('mf:hero',arm);document.addEventListener('visibilitychange',arm);
+ arm()}
 })();
