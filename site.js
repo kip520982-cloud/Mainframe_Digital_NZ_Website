@@ -52,7 +52,7 @@ const vids=panels.map((p,i)=>p.querySelector('video')).filter(Boolean);
 const vplay=()=>{const v=vid(cur);if(!v)return;const ok=!reduce&&started&&visible&&!document.hidden;if(ok){const p=v.play();if(p&&p.catch)p.catch(()=>{})}else v.pause()};
 const vp=i=>panels[i].querySelector('.ph-screen')||view;
 /* a tab can carry a second domain (data-domain2) for the lower part of its screenshot, e.g. App Store then Google Play */
-const dom=(i,off)=>{const t=tabs[i],d2=t.dataset.domain2;let v=t.dataset.domain;if(d2){const im=img(i),h=im.getBoundingClientRect().height,s=parseFloat(t.dataset.split||'.5');if(h&&off+vp(i).clientHeight*.5>h*s)v=d2}if(domain.textContent!==v)domain.textContent=v};
+const dom=(i,off)=>{const t=tabs[i],d2=t.dataset.domain2;let v=t.dataset.domain;if(d2){const im=img(i),h=im.getBoundingClientRect().height,s=parseFloat(t.dataset.split||'.5');if(h&&off+vp(i).clientHeight*.5>h*s)v=d2}if(domain&&domain.textContent!==v)domain.textContent=v};
 let raf=0;
 const running=()=>!reduce&&started&&visible&&!hover&&!document.hidden;
 const stopAnim=()=>{clearTimeout(timer);cancelAnimationFrame(raf);if(anim){anim.cancel();anim=null}};
@@ -70,7 +70,7 @@ const run=()=>{const tok=++gen,im=img(cur);
 const show=(i,focus)=>{stopAnim();cur=(i+n)%n;
  tabs.forEach((t,k)=>{const on=k===cur;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;panels[k].hidden=!on;if(caps[k])caps[k].hidden=!on;if(dots[k])dots[k].classList.toggle('on',on)});
  vids.forEach(v=>{if(v!==vid(cur)){v.pause()}});{const v=vid(cur);if(v){try{v.currentTime=0}catch(e){}v._t=0}}
- panels[cur].scrollTop=0;const ps=panels[cur].querySelector('.ph-screen');if(ps)ps.scrollTop=0;domain.textContent=tabs[cur].dataset.domain;if(focus)tabs[cur].focus();if(!reduce)run()};
+ panels[cur].scrollTop=0;const ps=panels[cur].querySelector('.ph-screen');if(ps)ps.scrollTop=0;if(domain)domain.textContent=tabs[cur].dataset.domain;if(focus)tabs[cur].focus();if(!reduce)run()};
 const sync=()=>{vplay();if(!started||reduce)return;if(vid(cur))return;if(running()){if(anim&&anim.playState==='paused')anim.play();else if(!anim||anim.playState==='finished'){clearTimeout(timer);timer=setTimeout(next,HOLD_END)}}else{clearTimeout(timer);if(anim&&anim.playState==='running')anim.pause()}};
 const loadAll=()=>panels.forEach(p=>{const im=p.querySelector('img');if(im&&im.loading==='lazy')im.loading='eager'});
 /* links elsewhere on the page (e.g. service cards) can open a specific showcase tab */
