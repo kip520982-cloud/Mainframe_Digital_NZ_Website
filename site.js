@@ -30,6 +30,17 @@ const loop=t=>{if(visible)draw(t-t0);requestAnimationFrame(loop)};
 size();window.addEventListener('resize',size);
 if(reduce){draw(2000)}else{new IntersectionObserver(e=>{visible=e[0].isIntersecting}).observe(cv);requestAnimationFrame(loop)}}
 
+/* connected-workflow switcher: tabs with arrow keys, gentle auto-advance until the visitor interacts */
+const flow=$('.flow');
+if(flow){const tabs=$$('.flow-tab',flow);let cur=0,timer=null,auto=!reduce,seen=false;const DUR=7000;
+const show=(i,focus)=>{cur=(i+tabs.length)%tabs.length;tabs.forEach((t,k)=>{const on=k===cur;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;t.classList.remove('timing');const p=document.getElementById(t.getAttribute('aria-controls'));p.hidden=!on;p.classList.remove('play');if(on){void p.offsetWidth;p.classList.add('play')}});if(focus)tabs[cur].focus();if(auto&&seen)arm()};
+const arm=()=>{clearTimeout(timer);const t=tabs[cur];t.style.setProperty('--dur',DUR+'ms');void t.offsetWidth;t.classList.add('timing');timer=setTimeout(()=>show(cur+1),DUR)};
+const stop=()=>{auto=false;clearTimeout(timer);tabs.forEach(t=>t.classList.remove('timing'))};
+tabs.forEach((t,i)=>{t.addEventListener('click',()=>{stop();show(i)});t.addEventListener('keydown',e=>{const k={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(k){e.preventDefault();stop();show(cur+k,true)}else if(e.key==='Home'){e.preventDefault();stop();show(0,true)}else if(e.key==='End'){e.preventDefault();stop();show(tabs.length-1,true)}})});
+flow.addEventListener('pointerenter',()=>{if(auto){clearTimeout(timer);tabs[cur].classList.remove('timing')}});
+flow.addEventListener('pointerleave',()=>{if(auto&&seen)arm()});
+if('IntersectionObserver' in window){new IntersectionObserver(es=>{const v=es[0].isIntersecting;if(v&&!seen){seen=true;show(0)}else if(v&&auto)arm();else if(!v){clearTimeout(timer);tabs[cur].classList.remove('timing')}},{threshold:.35}).observe(flow)}else{seen=true;show(0)}}
+
 /* nav state on scroll */
 let ticking=false;const onScroll=()=>{ticking=false;nav.classList.toggle('scrolled',window.scrollY>10)};
 window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});onScroll();

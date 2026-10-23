@@ -73,7 +73,7 @@
       <div class="stat reveal"><b>Auckland</b><span>Based in New Zealand</span></div>
       <div class="stat reveal" style="--d:80ms"><b>Strategy + build</b><span>One team, end to end</span></div>
       <div class="stat reveal" style="--d:160ms"><b>Plain English</b><span>No jargon, clear scope</span></div>
-      <div class="stat reveal" style="--d:240ms"><b>Small jobs</b><span>Welcome too</span></div>
+      <div class="stat reveal" style="--d:240ms"><b>Startups welcome</b><span>AI built in from day one</span></div>
     </div></div>
 
     <!-- SHORT ANSWER (speech-bubble card) -->
@@ -146,28 +146,44 @@
         </div>
         <div class="fit-copy reveal">
           <p>You might be exploring AI for the first time and want people who understand your business, can identify the strongest opportunities and build the right solutions. We're particularly suited to owners who want a long-term view of how AI can support their growth, with practical steps to get there.</p>
-          <p>We're also happy to help with smaller projects, quick automations and one-off improvements.</p>
+          <p>We also work with startups, helping new businesses integrate AI into their product and operations from the start.</p>
         </div>
       </div>
     </section>
 
-    <!-- INTEGRATIONS -->
+    <!-- INTEGRATIONS: before/after workflow switcher (deliberately not a hub diagram or logo grid) -->
     <section class="block alt" id="integrations" aria-labelledby="integrations-title">
       <div class="container">
         <div class="section-head reveal">
-          <p class="label">Integrations</p>
-          <h2 id="integrations-title">Works with the tools <span class="accent">you already use.</span></h2>
-          <p>We connect your everyday software, so information flows between systems instead of being retyped. No need to switch tools or retrain your team.</p>
+          <p class="label">Connected workflows</p>
+          <h2 id="integrations-title">Less copy and paste. <span class="accent">More done.</span></h2>
+          <p>Pick a moment from a normal week and see what changes when your software passes the work along by itself. Same tools, fewer steps for your team.</p>
         </div>
-        <div class="hub reveal" aria-hidden="true">
-          <div class="hub-col"><span class="hub-node">Calls &amp; texts</span><span class="hub-node">Emails</span><span class="hub-node">Website forms</span><span class="hub-node">Documents</span></div>
-          <div class="hub-mid"><svg class="hub-lines" viewBox="0 0 400 220" preserveAspectRatio="none"><path d="M0 28 C120 28 140 110 200 110"/><path d="M0 82 C120 82 150 110 200 110"/><path d="M0 138 C120 138 150 110 200 110"/><path d="M0 192 C120 192 140 110 200 110"/><path d="M200 110 C260 110 280 28 400 28"/><path d="M200 110 C250 110 280 82 400 82"/><path d="M200 110 C250 110 280 138 400 138"/><path d="M200 110 C260 110 280 192 400 192"/></svg><div class="hub-core"><svg class="mark" aria-hidden="true"><use href="#mf-mark"/></svg><b>Mainframe</b><small>Connects, automates, sorts</small></div></div>
-          <div class="hub-col"><span class="hub-node">Your CRM</span><span class="hub-node">Calendar</span><span class="hub-node">Accounts</span><span class="hub-node">Your team</span></div>
+        <div class="flow reveal">
+          <div class="flow-tabs" role="tablist" aria-label="Example workflows">
+            <button class="flow-tab" role="tab" id="ft-lead" aria-controls="fp-lead" aria-selected="true" tabindex="0"><span class="flow-n">01</span><span><b>A new enquiry comes in</b><small>Calls, forms &amp; email</small></span></button><button class="flow-tab" role="tab" id="ft-invoice" aria-controls="fp-invoice" aria-selected="false" tabindex="-1"><span class="flow-n">02</span><span><b>A job is finished</b><small>Accounting</small></span></button><button class="flow-tab" role="tab" id="ft-docs" aria-controls="fp-docs" aria-selected="false" tabindex="-1"><span class="flow-n">03</span><span><b>Paperwork needs signing</b><small>Documents &amp; e-signatures</small></span></button><button class="flow-tab" role="tab" id="ft-ai" aria-controls="fp-ai" aria-selected="false" tabindex="-1"><span class="flow-n">04</span><span><b>Your team wants to use AI</b><small>AI assistants</small></span></button>
+          </div>
+          <div class="flow-stage">
+          <div class="flow-panel" role="tabpanel" id="fp-lead" aria-labelledby="ft-lead">
+            <div class="flow-col flow-before"><p class="flow-h">Without it</p><ul><li>Enquiry lands in someone's inbox or voicemail</li><li>Details get copied into a spreadsheet or CRM by hand</li><li>Follow-up depends on who remembers</li><li>Some enquiries quietly go cold</li></ul></div>
+            <div class="flow-col flow-after"><p class="flow-h">Connected</p><ol><li style="--s:0">Enquiry captured from the call, form or email</li><li style="--s:1">Contact and job created in your CRM automatically</li><li style="--s:2">Reply and follow-ups sent on a schedule you set</li><li style="--s:3">You get a short summary on your phone</li></ol><ul class="flow-tools" aria-label="Tools involved"><li>Twilio</li><li>Google Workspace</li><li>Microsoft 365</li></ul></div>
+          </div><div class="flow-panel" role="tabpanel" id="fp-invoice" aria-labelledby="ft-invoice" hidden>
+            <div class="flow-col flow-before"><p class="flow-h">Without it</p><ul><li>Job notes live in texts and paper</li><li>Invoice typed into the accounts later</li><li>Payment reminders sent by hand, if at all</li></ul></div>
+            <div class="flow-col flow-after"><p class="flow-h">Connected</p><ol><li style="--s:0">Job marked done in the tool your team already uses</li><li style="--s:1">Draft invoice created in Xero with the right details</li><li style="--s:2">Reminders go out until it's paid</li><li style="--s:3">Paid status flows back to the customer record</li></ol><ul class="flow-tools" aria-label="Tools involved"><li>Xero</li></ul></div>
+          </div><div class="flow-panel" role="tabpanel" id="fp-docs" aria-labelledby="ft-docs" hidden>
+            <div class="flow-col flow-before"><p class="flow-h">Without it</p><ul><li>Template copied and edited by hand</li><li>Emailed out, then chased for a signature</li><li>Signed copy saved somewhere, under some name</li></ul></div>
+            <div class="flow-col flow-after"><p class="flow-h">Connected</p><ol><li style="--s:0">Document filled in from the customer record</li><li style="--s:1">Sent for signature through DocuSign</li><li style="--s:2">Signed copy named and filed in Dropbox</li><li style="--s:3">Record updated, next step triggered</li></ol><ul class="flow-tools" aria-label="Tools involved"><li>DocuSign</li><li>Dropbox</li></ul></div>
+          </div><div class="flow-panel" role="tabpanel" id="fp-ai" aria-labelledby="ft-ai" hidden>
+            <div class="flow-col flow-before"><p class="flow-h">Without it</p><ul><li>Everyone tries a different chatbot on their own</li><li>Business info pasted into personal accounts</li><li>No shared rules, so results vary</li></ul></div>
+            <div class="flow-col flow-after"><p class="flow-h">Connected</p><ol><li style="--s:0">Claude or ChatGPT set up properly for the team</li><li style="--s:1">Connected to the documents and email it needs</li><li style="--s:2">Simple guidelines everyone actually follows</li><li style="--s:3">Hands-on training, so it gets used every day</li></ol><ul class="flow-tools" aria-label="Tools involved"><li>Claude</li><li>ChatGPT</li></ul></div>
+          </div>
+          </div>
         </div>
-        <ul class="tools">
-          <li class="tool reveal" style="--d:0ms"><span class="mono-tile" aria-hidden="true">GW</span><div><b>Google Workspace</b><small>Email, calendar &amp; docs</small><p>Gmail, Calendar and Drive connected to your workflows and AI assistants.</p></div></li><li class="tool reveal" style="--d:70ms"><span class="mono-tile" aria-hidden="true">M365</span><div><b>Microsoft 365</b><small>Email, calendar &amp; docs</small><p>Outlook, Teams and SharePoint working with your automations.</p></div></li><li class="tool reveal" style="--d:140ms"><span class="mono-tile" aria-hidden="true">XO</span><div><b>Xero</b><small>Accounting</small><p>Invoices, contacts and reporting kept in sync with the rest of the business.</p></div></li><li class="tool reveal" style="--d:0ms"><span class="mono-tile" aria-hidden="true">DB</span><div><b>Dropbox</b><small>Files</small><p>Documents saved, named and filed in the right place automatically.</p></div></li><li class="tool reveal" style="--d:70ms"><span class="mono-tile" aria-hidden="true">DS</span><div><b>DocuSign</b><small>E-signatures</small><p>Agreements sent, signed and tracked as part of the process.</p></div></li><li class="tool reveal" style="--d:140ms"><span class="mono-tile" aria-hidden="true">PM</span><div><b>PropertyMe</b><small>Property management</small><p>Property admin connected to your email, documents and accounts.</p></div></li><li class="tool reveal" style="--d:0ms"><span class="mono-tile" aria-hidden="true">CL</span><div><b>Claude</b><small>AI assistant</small><p>Set up for your team, connected to your tools and backed by training.</p></div></li><li class="tool reveal" style="--d:70ms"><span class="mono-tile" aria-hidden="true">GPT</span><div><b>ChatGPT</b><small>AI assistant</small><p>Rolled out properly, with guidelines your team will actually follow.</p></div></li><li class="tool reveal" style="--d:140ms"><span class="mono-tile" aria-hidden="true">TW</span><div><b>Twilio</b><small>Calls &amp; SMS</small><p>Phone calls and text messages built into your systems.</p></div></li>
-        </ul>
-        <p class="tools-note reveal">Using something else? Tell us what you run and we'll check how it connects. Product names are trademarks of their owners and are listed to show tools we work with; no affiliation or endorsement is implied.</p>
+        <div class="belt reveal">
+          <p class="flow-h">Tools we regularly connect</p>
+          <ul><li><span>Email, calendar &amp; docs</span><b>Google Workspace · Microsoft 365</b></li><li><span>Accounting</span><b>Xero</b></li><li><span>Files &amp; e-signatures</span><b>Dropbox · DocuSign</b></li><li><span>Property management</span><b>Property management platforms</b></li><li><span>AI assistants</span><b>Claude · ChatGPT</b></li><li><span>Calls &amp; SMS</span><b>Twilio</b></li></ul>
+          <p class="tools-note">Running something else? Tell us what you use and we'll check how it connects. Product names are trademarks of their owners and are listed to show tools we work with; no affiliation or endorsement is implied.</p>
+        </div>
       </div>
     </section>
 
@@ -177,9 +193,8 @@
         <div class="section-head reveal">
           <p class="label">Services</p>
           <h2 id="services-title">What we can do <span class="accent">for you.</span></h2>
-          <p>Start with one thing or let us look at the whole picture. Every engagement is scoped to your business and quoted up front.</p>
+          <p>Start with one thing or let us look at the whole picture. Every engagement is scoped to your business before any build starts.</p>
         </div>
-        <!-- PLACEHOLDER: every "From $TBC" price below needs a real figure from Kieran before launch. -->
         <div class="services-grid">
           <article class="svc reveal" style="--d:0ms">
             <span class="num">01</span>
@@ -187,7 +202,6 @@
             <h3>AI setup &amp; training for teams</h3>
             <p>Get your team using AI properly, safely and every day. We connect assistants like Claude or ChatGPT to the tools you already use, then train your people to get real value from them.</p>
             <ul><li>Assistant setup connected to your tools</li><li>Hands-on team training</li><li>Simple usage guidelines</li></ul>
-            <div class="price-box"><div class="price" style="padding:0;margin:0"><div><small>FROM</small><strong>$TBC</strong></div><span class="tbc" title="Placeholder price, to be confirmed">PRICE TBC</span></div></div>
           </article>
           <article class="svc reveal" style="--d:80ms">
             <span class="num">02</span>
@@ -195,7 +209,6 @@
             <h3>Workflow automation</h3>
             <p>Take the repetitive admin off your plate. We automate the follow-ups, data entry and handovers that eat your week, so your team can focus on customers.</p>
             <ul><li>Quick wins in days, not months</li><li>Lead and enquiry follow-up</li><li>Reporting and admin on autopilot</li></ul>
-            <div class="price-box"><div class="price" style="padding:0;margin:0"><div><small>FROM</small><strong>$TBC</strong></div><span class="tbc" title="Placeholder price, to be confirmed">PRICE TBC</span></div></div>
           </article>
           <article class="svc reveal" style="--d:160ms">
             <span class="num">03</span>
@@ -203,7 +216,6 @@
             <h3>System integrations</h3>
             <p>Make your software talk to each other. Your CRM, calendar, accounting and job tools share information automatically, so nothing gets typed twice or lost.</p>
             <ul><li>One source of truth</li><li>Less double handling</li><li>Built around how you already run</li></ul>
-            <div class="price-box"><div class="price" style="padding:0;margin:0"><div><small>FROM</small><strong>$TBC</strong></div><span class="tbc" title="Placeholder price, to be confirmed">PRICE TBC</span></div></div>
           </article>
           <article class="svc reveal" style="--d:0ms">
             <span class="num">04</span>
@@ -211,7 +223,6 @@
             <h3>Websites &amp; web apps</h3>
             <p>Fast, modern websites that win enquiries, plus custom web apps and portals that run parts of your business, with AI built in where it helps.</p>
             <ul><li>Business websites that convert</li><li>Customer and staff portals</li><li>AI features built in</li></ul>
-            <div class="price-box"><div class="price" style="padding:0;margin:0"><div><small>FROM</small><strong>$TBC</strong></div><span class="tbc" title="Placeholder price, to be confirmed">PRICE TBC</span></div></div>
           </article>
           <article class="svc reveal" style="--d:80ms">
             <span class="num">05</span>
@@ -219,7 +230,6 @@
             <h3>AI growth consulting &amp; strategy</h3>
             <p>Not sure where AI fits? We look at your business with a commercial eye, find the strongest opportunities and map practical steps to grow revenue and improve customer experience.</p>
             <ul><li>Opportunity review</li><li>Prioritised AI roadmap</li><li>Ongoing advisory</li></ul>
-            <div class="price-box"><div class="price" style="padding:0;margin:0"><div><small>FROM</small><strong>$TBC</strong></div><span class="tbc" title="Placeholder price, to be confirmed">PRICE TBC</span></div></div>
           </article>
           <article class="svc reveal" style="--d:160ms;background:var(--paper);color:var(--ink);border-color:#cfd9d2">
             <span class="num" style="color:#56635a">+</span>
@@ -242,7 +252,7 @@
         </div>
         <ol class="steps">
           <li class="step reveal"><span class="n">STEP 01</span><h3>Discover</h3><p>A free chat about your business, your goals and what's slowing you down. We listen first.</p></li>
-          <li class="step reveal" style="--d:90ms"><span class="n">STEP 02</span><h3>Plan</h3><p>We find the strongest opportunities and give you a clear plan, with scope and price agreed up front.</p></li>
+          <li class="step reveal" style="--d:90ms"><span class="n">STEP 02</span><h3>Plan</h3><p>We find the strongest opportunities and give you a clear plan, with the scope agreed up front.</p></li>
           <li class="step reveal" style="--d:180ms"><span class="n">STEP 03</span><h3>Build</h3><p>We build, test and launch it with you, and keep you in the loop with working results, not jargon.</p></li>
           <li class="step reveal" style="--d:270ms"><span class="n">STEP 04</span><h3>Support</h3><p>We train your team, look after what we've built and keep improving it as your business grows.</p></li>
         </ol>
@@ -259,14 +269,15 @@
         <div class="stack">
           <article class="case case-real" style="--i:0">
             <div>
-              <span class="tag">OUR PRODUCT · LIVE</span>
-              <span class="answer-logo" role="img" aria-label="The Answer Line"></span>
+              <span class="tag">A MAINFRAME DIGITAL PRODUCT · LIVE</span>
+              <span class="answer-logo" role="img" aria-label="The Answer Line by Mainframe Digital"></span>
+              <p class="byline">The Answer Line <span>by Mainframe Digital</span></p>
               <h3>Every call answered, day or night.</h3>
-              <p>The Answer Line is an AI phone answering service for NZ businesses, built for trades and owner-operators who can't always get to the phone. It picks up every call in a natural Kiwi voice, captures what the caller needs, where they are and how urgent it is, then texts the job straight to the owner.</p>
+              <p>The Answer Line is our own AI phone answering service for NZ businesses, built for trades and owner-operators who can't always get to the phone. It picks up every call in a natural Kiwi voice, captures what the caller needs, where they are and how urgent it is, then texts the job straight to the owner.</p>
               <ul>
                 <li>Base package: answer, capture and text the job</li>
                 <li>Custom package: books appointments into your calendar, loads your CRM or job software, and sends confirmations and reminders</li>
-                <li>Answers as the business and never guesses prices or makes promises</li>
+                <li>Answers as your business and never makes promises on your behalf</li>
               </ul>
               <a class="pill ghost" href="https://www.theanswerline.kiwi/" target="_blank" rel="noopener">Visit theanswerline.kiwi<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
             </div>
@@ -279,9 +290,30 @@
               </div>
             </div>
           </article>
-          <!-- PLACEHOLDER: case study slot 2. Replace with a real client project (with the client's permission) before launch. Do not invent clients, results or testimonials. -->
-          <article class="case case-ph" style="--i:1">
-            <div><span class="tag">PLACEHOLDER</span><h3>Case study coming soon</h3><p>A client project write-up will go here.</p></div>
+          <!-- CASE STUDY: Industry DJ School. Facts only from stapleton.vercel.app (Kieran's portfolio) and industrydjschool.com. Kieran: founding engineer, 2024 to now. -->
+          <article class="case case-real case-ids" style="--i:1">
+            <div>
+              <span class="tag">FOUNDING ENGINEER · 2024 – NOW</span>
+              <p class="case-name">Industry DJ School</p>
+              <h3>The systems behind a New Zealand DJ school.</h3>
+              <p>Industry DJ School offers practical, hands-on DJ training for beginners, youth and working DJs. Kieran has been its founding engineer since 2024, building the software the school runs on, from enquiry to enrolment to lesson.</p>
+              <ul>
+                <li>A custom CRM that replaced HubSpot, moving seven SaaS seats onto one platform</li>
+                <li>The student learning platform moved off a no-code builder onto a self-hosted web app, without a break in service</li>
+                <li>Stripe payments, where a verified payment enrols the student automatically</li>
+                <li>Voice, WhatsApp and Instagram agents that answer, qualify and book, then hand over to a person when needed</li>
+              </ul>
+              <a class="pill ghost" href="https://www.industrydjschool.com/" target="_blank" rel="noopener">Visit industrydjschool.com<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+            </div>
+            <div>
+              <ul class="sys" aria-label="What we built">
+                <li><span>CRM</span><b>Replaced HubSpot</b><i>LIVE</i></li>
+                <li><span>LMS</span><b>Student learning platform</b><i>LIVE</i></li>
+                <li><span>PAY</span><b>Stripe enrolment path</b><i>LIVE</i></li>
+                <li><span>AI</span><b>Phone &amp; messaging agents</b><i>LIVE</i></li>
+                <li><span>APP</span><b>iOS &amp; Android student app</b><i>APP STORE · PLAY</i></li>
+              </ul>
+            </div>
           </article>
           <!-- PLACEHOLDER: case study slot 3. Replace with a real client project (with permission) before launch. -->
           <article class="case case-ph" style="--i:2">
