@@ -646,3 +646,7 @@ html:not(.js) .enq-steps{display:none}
 .app-push{right:4px;top:96px;width:150px}
 .app-stores{left:22px;bottom:auto;top:50%;transform:translateY(-50%)}
 @media (prefers-reduced-motion:reduce){.hw,.hw .top{transition:none}}
+/* Safari: parent background-clip:text does not paint through transformed inline-block .w children, so each word carries its own clip */
+.grad .w{background:linear-gradient(100deg,#39e883 0%,#b4e5c3 45%,#39e883 90%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:sheen 8s linear infinite}
+.pixel-text .w{background-color:rgba(240,240,240,.92);background-image:radial-gradient(circle at .7px .7px,rgba(0,0,0,.22) .45px,transparent .58px);background-size:2px 2px;-webkit-background-clip:text;background-clip:text;color:transparent}
+@supports not ((background-clip:text) or (-webkit-background-clip:text)){.grad,.grad .w{background:none;color:var(--green);-webkit-text-fill-color:currentColor;animation:none}.pixel-text,.pixel-text .w{background:none;color:rgba(240,240,240,.92)}}
