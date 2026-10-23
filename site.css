@@ -662,3 +662,22 @@ html:not(.js) .enq-steps{display:none}
   .svc ul{display:none}
   .svc-links{padding-top:14px}
 }
+/* mobile audit: 44px tap targets (phones only, desktop unchanged) */
+@media (max-width:720px){
+  .brand{padding:9px 0}
+  .nav-toggle{min-height:44px;padding:0 16px}
+  .hw-dots{gap:0}.hw-dots button{width:30px;height:44px}
+  .hw-pause{width:44px;height:44px}
+  .foot ul{gap:0}.foot ul a{display:inline-block;padding:12px 0}
+  .svc-links{gap:0 20px}.svc-links a{min-height:44px;align-items:flex-end;padding:0 0 5px}
+  .pf-filter{gap:0 18px}.pf-filter button{padding:13px 0;min-width:44px;text-align:center}
+  .pf-title a{display:inline-block;padding:11px 0}
+  .pd-back{padding:12px 0;margin-bottom:22px}
+  .store-b{min-height:44px}
+  .enq-back{padding:16px 10px}
+  .pill.sm{min-height:44px}
+  .fp-body h3 a{display:inline-block;padding:8px 0}.fp-more-link{display:inline-block;padding:12px 0}
+  .enq-alt a{display:inline-block;padding:12px 0}
+  .foot-bottom a{display:inline-block;padding:14px 0}
+  .hw-dots button{width:36px}
+}

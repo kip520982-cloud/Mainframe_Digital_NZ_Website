@@ -7,6 +7,7 @@ document.documentElement.classList.add('js');
 const nav=$('.nav');const toggle=$('.nav-toggle'),links=$('#nav-links');
 toggle.addEventListener('click',()=>{const o=links.classList.toggle('open');toggle.setAttribute('aria-expanded',String(o))});
 links.addEventListener('click',e=>{if(e.target.closest('a')){links.classList.remove('open');toggle.setAttribute('aria-expanded','false')}});
+const closeNav=f=>{if(!links.classList.contains('open'))return;links.classList.remove('open');toggle.setAttribute('aria-expanded','false');if(f)toggle.focus()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNav(true)});document.addEventListener('click',e=>{if(!e.target.closest('#nav-links,.nav-toggle'))closeNav()});
 
 /* split headings into words */
 $$('.split').forEach(el=>{let i=0;const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t)){f.appendChild(document.createTextNode(t))}else{const s=document.createElement('span');s.className='w';s.style.setProperty('--wi',i++);s.textContent=t;f.appendChild(s)}});c.replaceWith(f)}else if(c.nodeType===1&&!c.classList.contains('w'))walk(c)})};walk(el)});
