@@ -73,6 +73,8 @@ const show=(i,focus)=>{stopAnim();cur=(i+n)%n;
  panels[cur].scrollTop=0;const ps=panels[cur].querySelector('.ph-screen');if(ps)ps.scrollTop=0;domain.textContent=tabs[cur].dataset.domain;if(focus)tabs[cur].focus();if(!reduce)run()};
 const sync=()=>{vplay();if(!started||reduce)return;if(vid(cur))return;if(running()){if(anim&&anim.playState==='paused')anim.play();else if(!anim||anim.playState==='finished'){clearTimeout(timer);timer=setTimeout(next,HOLD_END)}}else{clearTimeout(timer);if(anim&&anim.playState==='running')anim.pause()}};
 const loadAll=()=>panels.forEach(p=>{const im=p.querySelector('img');if(im&&im.loading==='lazy')im.loading='eager'});
+/* links elsewhere on the page (e.g. service cards) can open a specific showcase tab */
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('[data-sc-tab]');if(!a)return;const i=tabs.findIndex(t=>t.id===a.dataset.scTab);if(i>=0)show(i)});
 tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));t.addEventListener('keydown',e=>{const k={ArrowRight:1,ArrowLeft:-1}[e.key];if(k){e.preventDefault();show(cur+k,true)}else if(e.key==='Home'){e.preventDefault();show(0,true)}else if(e.key==='End'){e.preventDefault();show(n-1,true)}})});
 dots.forEach((d,i)=>d.addEventListener('click',()=>show(i)));
 const lap=$('.laptop',sc);
