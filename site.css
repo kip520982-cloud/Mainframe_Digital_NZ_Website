@@ -340,6 +340,7 @@ section.alt{background:linear-gradient(#020302,#000);border-block:1px solid var(
 .pd-phone-screen{height:min(680px,72vh);overflow-y:auto;border-radius:42px;background:#000;scrollbar-width:none}
 .pd-phone-screen::-webkit-scrollbar{display:none}
 .pd-phone-screen img{width:100%;height:auto}
+.pd-phone-screen.fit{height:auto;overflow:hidden}
 .pd-nav{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:70px;padding:28px 0;border-block:1px solid var(--line)}
 .pd-nav a{text-decoration:none;display:flex;flex-direction:column;gap:6px}
 .pd-nav span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
