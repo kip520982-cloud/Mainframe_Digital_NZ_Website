@@ -46,6 +46,10 @@ const sc=$('[data-showcase]');
 if(sc){const tabs=$$('.sf-tab',sc),n=tabs.length,panels=tabs.map(t=>document.getElementById(t.getAttribute('aria-controls'))),caps=$$('.sc-cap-text',sc),dots=$$('.sc-dotsnav button',sc),domain=$('.sf-domain',sc),view=$('.sf-view',sc);
 let cur=0,anim=null,timer=null,gen=0,started=false,visible=false,hover=false;const HOLD_TOP=900,HOLD_END=1200;
 const img=i=>panels[i].querySelector('img');
+const vid=i=>panels[i].querySelector('video');
+/* video tabs: play only while their tab is active and the showcase is on screen; auto-advance after one full loop */
+const vids=panels.map((p,i)=>p.querySelector('video')).filter(Boolean);
+const vplay=()=>{const v=vid(cur);if(!v)return;const ok=!reduce&&started&&visible&&!document.hidden;if(ok){const p=v.play();if(p&&p.catch)p.catch(()=>{})}else v.pause()};
 const vp=i=>panels[i].querySelector('.ph-screen')||view;
 /* a tab can carry a second domain (data-domain2) for the lower part of its screenshot, e.g. App Store then Google Play */
 const dom=(i,off)=>{const t=tabs[i],d2=t.dataset.domain2;let v=t.dataset.domain;if(d2){const im=img(i),h=im.getBoundingClientRect().height,s=parseFloat(t.dataset.split||'.5');if(h&&off+vp(i).clientHeight*.5>h*s)v=d2}if(domain.textContent!==v)domain.textContent=v};
@@ -54,6 +58,7 @@ const running=()=>!reduce&&started&&visible&&!hover&&!document.hidden;
 const stopAnim=()=>{clearTimeout(timer);cancelAnimationFrame(raf);if(anim){anim.cancel();anim=null}};
 const next=()=>show(cur+1);
 const run=()=>{const tok=++gen,im=img(cur);
+ if(!im){vplay();return}
  const go=()=>{if(tok!==gen)return;const vh=vp(cur).clientHeight,d=Math.max(0,im.getBoundingClientRect().height-vh);
   if(d<4){if(running())timer=setTimeout(next,4000);return}
   const dur=Math.min(7000,Math.max(3800,d/vh*2400));
@@ -64,9 +69,10 @@ const run=()=>{const tok=++gen,im=img(cur);
  if(im.complete&&im.naturalHeight)go();else im.addEventListener('load',go,{once:true})};
 const show=(i,focus)=>{stopAnim();cur=(i+n)%n;
  tabs.forEach((t,k)=>{const on=k===cur;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;panels[k].hidden=!on;if(caps[k])caps[k].hidden=!on;if(dots[k])dots[k].classList.toggle('on',on)});
+ vids.forEach(v=>{if(v!==vid(cur)){v.pause()}});{const v=vid(cur);if(v){try{v.currentTime=0}catch(e){}v._t=0}}
  panels[cur].scrollTop=0;const ps=panels[cur].querySelector('.ph-screen');if(ps)ps.scrollTop=0;domain.textContent=tabs[cur].dataset.domain;if(focus)tabs[cur].focus();if(!reduce)run()};
-const sync=()=>{if(!started||reduce)return;if(running()){if(anim&&anim.playState==='paused')anim.play();else if(!anim||anim.playState==='finished'){clearTimeout(timer);timer=setTimeout(next,HOLD_END)}}else{clearTimeout(timer);if(anim&&anim.playState==='running')anim.pause()}};
-const loadAll=()=>panels.forEach(p=>{const im=p.querySelector('img');if(im.loading==='lazy')im.loading='eager'});
+const sync=()=>{vplay();if(!started||reduce)return;if(vid(cur))return;if(running()){if(anim&&anim.playState==='paused')anim.play();else if(!anim||anim.playState==='finished'){clearTimeout(timer);timer=setTimeout(next,HOLD_END)}}else{clearTimeout(timer);if(anim&&anim.playState==='running')anim.pause()}};
+const loadAll=()=>panels.forEach(p=>{const im=p.querySelector('img');if(im&&im.loading==='lazy')im.loading='eager'});
 tabs.forEach((t,i)=>{t.addEventListener('click',()=>show(i));t.addEventListener('keydown',e=>{const k={ArrowRight:1,ArrowLeft:-1}[e.key];if(k){e.preventDefault();show(cur+k,true)}else if(e.key==='Home'){e.preventDefault();show(0,true)}else if(e.key==='End'){e.preventDefault();show(n-1,true)}})});
 dots.forEach((d,i)=>d.addEventListener('click',()=>show(i)));
 const lap=$('.laptop',sc);
@@ -74,6 +80,9 @@ lap.addEventListener('focusin',e=>{if(e.target.matches(':focus-visible')){hover=
 document.addEventListener('visibilitychange',sync);
 let rz;window.addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(started&&!reduce)show(cur)},300)});
 if(reduce)sc.classList.add('is-static');
+vids.forEach(v=>{const i=panels.indexOf(v.closest('.sf-panel'));if(reduce){v.removeAttribute('autoplay');v.controls=true}
+ v.addEventListener('play',()=>{if(i!==cur||panels[i].hidden||reduce&&!v.controls)v.pause()});
+ v.addEventListener('timeupdate',()=>{if(i===cur&&v.currentTime+0.5<(v._t||0)&&running())next();v._t=v.currentTime})});
 panels.forEach((p,i)=>{if(tabs[i].dataset.domain2)p.addEventListener('scroll',()=>{if(i===cur)dom(i,p.scrollTop)},{passive:true})});
 show(0);stopAnim();
 if('IntersectionObserver' in window){new IntersectionObserver(es=>{if(es[0].isIntersecting)loadAll()},{rootMargin:'800px 0px'}).observe(sc);
