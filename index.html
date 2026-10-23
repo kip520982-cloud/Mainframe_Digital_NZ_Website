@@ -46,7 +46,6 @@
   <main id="main">
     <!-- HERO -->
     <section class="hero" id="top">
-      <canvas id="dots" aria-hidden="true"></canvas>
       <div class="hero-term" aria-hidden="true"><div class="container"><div class="ht-lines" id="ht-lines"></div></div></div>
       <div class="container hero-grid">
         <div class="hero-copy">
@@ -77,9 +76,8 @@
               </div>
               <div class="hw-slide" data-label="Smart websites" data-sub="Landing page with a lead form" data-title="yourbusiness.co.nz" role="group" aria-roledescription="slide" aria-label="2 of 5: Smart websites" aria-hidden="true">
                 <div class="web">
-                  <div class="web-bar"><span class="web-url">https://yourbusiness.co.nz</span></div>
                   <div class="web-body">
-                    <div class="web-nav"><b>Coastline Plumbing</b><span>Services</span><span>Reviews</span><span>Contact</span></div>
+                    <div class="web-nav"><b><i class="web-logo" aria-hidden="true"></i>Your website</b><span>Services</span><span>Reviews</span><span>Contact</span></div>
                     <div class="web-hero">
                       <div class="web-copy"><small>AUCKLAND · 7 DAYS</small><h4>Same-day plumbing, booked in minutes.</h4><p>Tell us what's wrong and we'll confirm a time by text.</p><span class="web-rating">★★★★★ <em>Local, licensed, insured</em></span></div>
                       <div class="web-form"><b>Get a quote</b><span class="in">Name<i>Sam Taylor</i></span><span class="in">Mobile<i>021 555 0142</i></span><span class="in">What do you need?<i>Leaking hot water cylinder</i></span><span class="web-btn">Request a call back</span></div>
@@ -91,31 +89,35 @@
               <div class="hw-slide" data-label="Workflow automation" data-sub="Your tools, wired together" data-title="automation — live" role="group" aria-roledescription="slide" aria-label="3 of 5: Workflow automation" aria-hidden="true">
                 <div class="wire">
                 <svg class="wire-svg" viewBox="0 0 460 290" aria-hidden="true" focusable="false">
-                <text class="wl" x="14" y="24">SYSTEMS YOU ALREADY RUN</text>
-                <text class="wl" x="316" y="74">WORK THAT GETS DONE</text>
-                <path class="wb" d="M132 48C172 48 168 145 192 145"/><path class="wf" style="--k:0" d="M132 48C172 48 168 145 192 145"/>
-                <path class="wb" d="M132 88C172 88 168 145 192 145"/><path class="wf" style="--k:1" d="M132 88C172 88 168 145 192 145"/>
-                <path class="wb" d="M132 128C172 128 168 145 192 145"/><path class="wf" style="--k:2" d="M132 128C172 128 168 145 192 145"/>
-                <path class="wb" d="M132 168C172 168 168 145 192 145"/><path class="wf" style="--k:3" d="M132 168C172 168 168 145 192 145"/>
-                <path class="wb" d="M132 208C172 208 168 145 192 145"/><path class="wf" style="--k:4" d="M132 208C172 208 168 145 192 145"/>
-                <path class="wb" d="M132 248C172 248 168 145 192 145"/><path class="wf" style="--k:5" d="M132 248C172 248 168 145 192 145"/>
-                <path class="wb" d="M268 145C294 145 290 98 316 98"/><path class="wf out" style="--k:0" d="M268 145C294 145 290 98 316 98"/>
-                <path class="wb" d="M268 145C294 145 290 148 316 148"/><path class="wf out" style="--k:1" d="M268 145C294 145 290 148 316 148"/>
-                <path class="wb" d="M268 145C294 145 290 198 316 198"/><path class="wf out" style="--k:2" d="M268 145C294 145 290 198 316 198"/>
-                <g class="wn" style="--k:0"><rect x="14" y="34" width="118" height="28" rx="5"/><text x="26" y="52">EMAIL INBOX</text></g>
-                <g class="wn" style="--k:1"><rect x="14" y="74" width="118" height="28" rx="5"/><text x="26" y="92">XERO</text></g>
-                <g class="wn" style="--k:2"><rect x="14" y="114" width="118" height="28" rx="5"/><text x="26" y="132">SIMPRO</text></g>
-                <g class="wn" style="--k:3"><rect x="14" y="154" width="118" height="28" rx="5"/><text x="26" y="172">HUBSPOT</text></g>
-                <g class="wn" style="--k:4"><rect x="14" y="194" width="118" height="28" rx="5"/><text x="26" y="212">MICROSOFT 365</text></g>
-                <g class="wn" style="--k:5"><rect x="14" y="234" width="118" height="28" rx="5"/><text x="26" y="252">SHOPIFY</text></g>
-                <g class="wo" style="--k:0"><rect x="316" y="84" width="132" height="28" rx="5"/><circle cx="330" cy="98" r="3"/><text x="342" y="102">QUOTE SENT</text></g>
-                <g class="wo" style="--k:1"><rect x="316" y="134" width="132" height="28" rx="5"/><circle cx="330" cy="148" r="3"/><text x="342" y="152">INVOICE RAISED</text></g>
-                <g class="wo" style="--k:2"><rect x="316" y="184" width="132" height="28" rx="5"/><circle cx="330" cy="198" r="3"/><text x="342" y="202">CUSTOMER UPDATED</text></g>
-                <circle class="hub-ring" cx="230" cy="145" r="44"/><circle class="hub" cx="230" cy="145" r="35"/><use href="#mf-mark" x="214" y="129" width="32" height="32"/><text class="wl hub-l" x="230" y="207" text-anchor="middle">MAINFRAME</text></svg>
-                  <div class="wire-run"><span class="k">EXAMPLE RUN</span><span class="m">MAINFRAME</span><span class="wire-txt">Payment reminder booked for day 7</span><span class="cursor"></span></div>
+                <text class="wl" x="14" y="17">SYSTEMS YOU ALREADY RUN</text>
+                <text class="wl" x="300" y="58">WORK THAT GETS DONE</text>
+                <path class="wb" d="M138 40C172 40 168 148 188 148"/><path class="wf" style="--k:0" d="M138 40C172 40 168 148 188 148"/>
+                <path class="wb" d="M138 76C172 76 168 148 188 148"/><path class="wf" style="--k:1" d="M138 76C172 76 168 148 188 148"/>
+                <path class="wb" d="M138 112C172 112 168 148 188 148"/><path class="wf" style="--k:2" d="M138 112C172 112 168 148 188 148"/>
+                <path class="wb" d="M138 148C172 148 168 148 188 148"/><path class="wf" style="--k:3" d="M138 148C172 148 168 148 188 148"/>
+                <path class="wb" d="M138 184C172 184 168 148 188 148"/><path class="wf" style="--k:4" d="M138 184C172 184 168 148 188 148"/>
+                <path class="wb" d="M138 220C172 220 168 148 188 148"/><path class="wf" style="--k:5" d="M138 220C172 220 168 148 188 148"/>
+                <path class="wb" d="M138 256C172 256 168 148 188 148"/><path class="wf" style="--k:6" d="M138 256C172 256 168 148 188 148"/>
+                <path class="wb" d="M256 148C276 148 274 82 300 82"/><path class="wf out" style="--k:0" d="M256 148C276 148 274 82 300 82"/>
+                <path class="wb" d="M256 148C276 148 274 122 300 122"/><path class="wf out" style="--k:1" d="M256 148C276 148 274 122 300 122"/>
+                <path class="wb" d="M256 148C276 148 274 162 300 162"/><path class="wf out" style="--k:2" d="M256 148C276 148 274 162 300 162"/>
+                <path class="wb" d="M256 148C276 148 274 202 300 202"/><path class="wf out" style="--k:3" d="M256 148C276 148 274 202 300 202"/>
+                <g class="wn" style="--k:0"><rect x="14" y="27" width="124" height="26" rx="5"/><text x="25" y="44">MICROSOFT 365</text></g>
+                <g class="wn" style="--k:1"><rect x="14" y="63" width="124" height="26" rx="5"/><text x="25" y="80">MICROSOFT COPILOT</text></g>
+                <g class="wn" style="--k:2"><rect x="14" y="99" width="124" height="26" rx="5"/><text x="25" y="116">GMAIL / OUTLOOK</text></g>
+                <g class="wn" style="--k:3"><rect x="14" y="135" width="124" height="26" rx="5"/><text x="25" y="152">HUBSPOT</text></g>
+                <g class="wn" style="--k:4"><rect x="14" y="171" width="124" height="26" rx="5"/><text x="25" y="188">SALESFORCE</text></g>
+                <g class="wn" style="--k:5"><rect x="14" y="207" width="124" height="26" rx="5"/><text x="25" y="224">XERO</text></g>
+                <g class="wn" style="--k:6"><rect x="14" y="243" width="124" height="26" rx="5"/><text x="25" y="260">MYOB</text></g>
+                <g class="wo" style="--k:0"><rect x="300" y="68" width="146" height="28" rx="5"/><circle cx="312" cy="82" r="3"/><text x="322" y="86">LEAD ADDED TO CRM</text></g>
+                <g class="wo" style="--k:1"><rect x="300" y="108" width="146" height="28" rx="5"/><circle cx="312" cy="122" r="3"/><text x="322" y="126">FOLLOW-UP EMAIL SENT</text></g>
+                <g class="wo" style="--k:2"><rect x="300" y="148" width="146" height="28" rx="5"/><circle cx="312" cy="162" r="3"/><text x="322" y="166">JOB SCHEDULED</text></g>
+                <g class="wo" style="--k:3"><rect x="300" y="188" width="146" height="28" rx="5"/><circle cx="312" cy="202" r="3"/><text x="322" y="206">REPORT READY</text></g>
+                <circle class="hub-ring" cx="222" cy="148" r="42"/><circle class="hub" cx="222" cy="148" r="34"/><use href="#mf-mark" x="206" y="132" width="32" height="32"/><text class="wl hub-l" x="222" y="208" text-anchor="middle">MAINFRAME</text></svg>
+                  <div class="wire-run"><span class="k">EXAMPLE RUN</span><span class="m">MAINFRAME</span><span class="wire-txt">Outlook enquiry → lead added to HubSpot</span><span class="cursor"></span></div>
                 </div>
               </div>
-              <div class="hw-slide" data-label="Your iOS &amp; Android app" data-sub="iOS &amp; Android apps" data-title="app — preview" role="group" aria-roledescription="slide" aria-label="4 of 5: Your iOS and Android app" aria-hidden="true">
+              <div class="hw-slide" data-label="Your iOS &amp; Android app" data-sub="iOS &amp; Android apps" data-title="app — preview" data-frameless="" role="group" aria-roledescription="slide" aria-label="4 of 5: Your iOS and Android app" aria-hidden="true">
                 <div class="app">
                   <div class="phone"><div class="notch"></div><div class="ph-screen">
                     <div class="ph-status"><span>9:41</span><span>●●● ▮</span></div>

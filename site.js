@@ -19,17 +19,6 @@ else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e
 /* card spotlight follows pointer */
 $$('.svc').forEach(c=>c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')}));
 
-/* hero dot field (canvas) */
-const cv=$('#dots');
-if(cv){const ctx=cv.getContext('2d');let w,h,dpr,cols,rows,gap=18,visible=true,t0=performance.now();
-const size=()=>{dpr=Math.min(window.devicePixelRatio||1,2);w=cv.clientWidth;h=cv.clientHeight;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);gap=w<700?14:18;cols=Math.ceil(w/gap)+1;rows=Math.ceil(h/gap)+1};
-const draw=t=>{ctx.clearRect(0,0,w,h);const cx=w*(w>980?.72:.5),cy=h*.45;for(let y=0;y<rows;y++){for(let x=0;x<cols;x++){const px=x*gap,py=y*gap,dx=(px-cx)/w,dy=(py-cy)/h,d=Math.sqrt(dx*dx*1.4+dy*dy);
-const wave=Math.sin(d*18-t*.0011)*.5+.5;const fall=Math.max(0,1-Math.abs(d-.42)*2.6);const a=(.08+wave*.55)*fall;if(a<.03)continue;
-ctx.fillStyle=`rgba(57,232,131,${a.toFixed(3)})`;ctx.beginPath();ctx.arc(px,py,.6+wave*1.1*fall,0,6.283);ctx.fill()}}};
-const loop=t=>{if(visible)draw(t-t0);requestAnimationFrame(loop)};
-size();window.addEventListener('resize',size);
-if(reduce){draw(2000)}else{new IntersectionObserver(e=>{visible=e[0].isIntersecting}).observe(cv);requestAnimationFrame(loop)}}
-
 /* connected-workflow switcher: tabs with arrow keys, gentle auto-advance until the visitor interacts */
 const flow=$('.flow');
 if(flow){const tabs=$$('.flow-tab',flow);let cur=0,timer=null,auto=!reduce,seen=false;const DUR=7000;
@@ -67,7 +56,7 @@ const waitVisible=()=>new Promise(r=>{const ok=()=>heroOn&&!document.hidden;if(o
 const ht=$('#ht-lines');
 const HT=['> invoice raised for Lux Weddings','> lead qualified → booked','> deploying ios build 1.4.2','[ok] crm synced: 24 contacts','> quote sent to Kauri Builders','> payment reminder booked for day 7','[ok] new enquiry → pipeline','> transcribing call from 021 ··· 0142','> follow-up email drafted','[ok] xero: 3 invoices reconciled','> building android release 2.0.1','> site deployed: yourbusiness.co.nz','[ok] booking confirmed · Tue 10:30','> summarising inbox for Kieran','> assistant answered 12 questions','[ok] docs signed → filed in dropbox'];
 if(ht&&!reduce&&getComputedStyle(ht.parentNode.parentNode).display!=='none'){
- const N=Math.max(6,Math.floor(ht.clientHeight/26));const rows=[];for(let k=0;k<N;k++){const d=document.createElement('div');d.className='ht-line';ht.appendChild(d);rows.push(d)}
+ const LH=parseFloat(getComputedStyle(ht).lineHeight)||26;const N=Math.max(6,Math.floor(ht.clientHeight/LH));const rows=[];for(let k=0;k<N;k++){const d=document.createElement('div');d.className='ht-line';ht.appendChild(d);rows.push(d)}
  const KEEP=Math.min(7,N-2);(async()=>{let r=0,li=0;for(;;){await waitVisible();const row=rows[r%N];row.className='ht-line';row.textContent='';const line=HT[li++%HT.length];if(line.startsWith('[ok]'))row.classList.add('ok');
   const t=document.createElement('span');const c=document.createElement('span');c.className='cursor';row.append(t,c);
   for(const ch of line){t.textContent+=ch;await sleep(28+Math.random()*34)}await sleep(500);c.remove();
@@ -79,14 +68,14 @@ const hw=$('.hw');
 if(hw){const stage=$('.hw-stage',hw),slides=$$('.hw-slide',hw),title=$('.hw-title',hw),lab=$('.hw-label'),dots=$$('.hw-dots button'),num=$('.hw-n'),pauseBtn=$('.hw-pause');
  const fit=()=>stage.style.setProperty('--hs',(stage.clientWidth/460).toFixed(4));fit();
  if('ResizeObserver' in window)new ResizeObserver(fit).observe(stage);else window.addEventListener('resize',fit);
- let cur=0,timer=null,paused=reduce,hover=false;const DUR=4600;
- const runTxt=$('.wire-txt',hw);const RUNS=['Quote sent to Kauri Builders','Invoice INV-0142 raised in Xero','Customer updated in HubSpot','Payment reminder booked for day 7'];let runGen=0,runI=0;
- const typeRun=async()=>{if(!runTxt||reduce)return;const g=++runGen;for(;;){const s=RUNS[runI++%RUNS.length];runTxt.textContent='';for(const ch of s){if(g!==runGen)return;runTxt.textContent+=ch;await sleep(30+Math.random()*30)}await sleep(1300);if(g!==runGen)return}};
+ let cur=0,timer=null,paused=reduce,hover=false;const DUR=3000;
+ const runTxt=$('.wire-txt',hw);const RUNS=['Outlook enquiry → lead added to HubSpot','Job won in Salesforce → job scheduled','Paid in Xero → follow-up email sent','Copilot summary → weekly report ready','MYOB invoice paid → Salesforce updated'];let runGen=0,runI=0;
+ const typeRun=async()=>{if(!runTxt||reduce)return;const g=++runGen;for(;;){const s=RUNS[runI++%RUNS.length];runTxt.textContent='';for(const ch of s){if(g!==runGen)return;runTxt.textContent+=ch;await sleep(18+Math.random()*20)}await sleep(1200);if(g!==runGen)return}};
  const show=i=>{cur=(i+slides.length)%slides.length;const s=slides[cur];
   slides.forEach((x,k)=>{const on=k===cur;x.classList.toggle('on',on);x.setAttribute('aria-hidden',String(!on))});
   dots.forEach((d,k)=>d.setAttribute('aria-current',String(k===cur)));
   if(num)num.textContent=String(cur+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
-  title.textContent=s.dataset.title;
+  title.textContent=s.dataset.title;hw.classList.toggle('frameless','frameless' in s.dataset);
   if(lab){lab.classList.add('swap');setTimeout(()=>{$('b',lab).textContent=s.dataset.label;$('small',lab).textContent=s.dataset.sub;lab.classList.remove('swap')},reduce?0:300)}
   if(s.querySelector('.wire-txt'))typeRun();else runGen++;
   arm()};
