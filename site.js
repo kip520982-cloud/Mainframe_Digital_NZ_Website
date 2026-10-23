@@ -72,3 +72,71 @@ await sleep(sig?1100:420);caret.remove();while(screen.children.length>8)screen.f
 if(reduce){screen.textContent='[ready] mainframe services active\n// engineered by mainframe digital'}
 else{new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){start();o.disconnect()}}).observe(screen)}
 })();
+
+/* lead funnel: 2-step consultation form, ?service= prefill, UTM capture, sticky mobile CTA */
+(()=>{'use strict';
+const $=(s,c=document)=>c.querySelector(s),$$=(s,c=document)=>[...c.querySelectorAll(s)];
+const qs=new URLSearchParams(location.search);
+// remember UTMs for the session so they survive moving between pages
+const UTM=['utm_source','utm_medium','utm_campaign'];
+try{UTM.forEach(k=>{if(qs.get(k))sessionStorage.setItem(k,qs.get(k).slice(0,100))});if(!sessionStorage.getItem('mf_ref')&&document.referrer&&!document.referrer.startsWith(location.origin))sessionStorage.setItem('mf_ref',document.referrer.slice(0,300))}catch(e){}
+const ss=k=>{try{return sessionStorage.getItem(k)||''}catch(e){return ''}};
+window.mfTracking=()=>({utm_source:ss('utm_source'),utm_medium:ss('utm_medium'),utm_campaign:ss('utm_campaign'),page:location.href.slice(0,300),referrer:ss('mf_ref')});
+
+const form=$('#enquiry');
+if(form){
+  const steps=$$('.enq-step',form),marks=$$('.enq-steps li',form),status=$('.enq-status',form);
+  const SERV=['apps','business','website','automation','ai','unsure'];
+  const show=n=>{steps.forEach(s=>s.hidden=s.dataset.step!==String(n));marks.forEach(m=>m.classList.toggle('on',m.dataset.for===String(n)))};
+  show(1);
+  const setErr=(name,msg)=>{const e=$('#e-'+name,form);if(e)e.textContent=msg||'';
+    const fields=name==='interests'?$$('[name=interests]',form):[form.elements[name]];fields.forEach(f=>{if(!f)return;if(msg){f.setAttribute('aria-invalid','true');if(e&&f.type!=='checkbox')f.setAttribute('aria-describedby',e.id)}else f.removeAttribute('aria-invalid')})};
+  const val=n=>(form.elements[n]&&form.elements[n].value||'').trim();
+  const check1=()=>{const errs={};
+    if(!val('first_name'))errs.first_name='Please add your first name.';
+    if(!val('business'))errs.business='Please add your business name.';
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('email')))errs.email='Please add a valid email address.';
+    if(val('mobile')&&!/^[+()\d\s-]{6,20}$/.test(val('mobile')))errs.mobile='That mobile number doesn\'t look right.';
+    if(!val('industry'))errs.industry='Please choose an industry.';
+    ['first_name','business','email','mobile','industry'].forEach(k=>setErr(k,errs[k]));return errs};
+  const check2=()=>{const errs={};if(!$$('[name=interests]:checked',form).length)errs.interests='Please choose at least one option.';setErr('interests',errs.interests);return errs};
+  const focusFirst=errs=>{const k=Object.keys(errs)[0];if(!k)return;const f=k==='interests'?$('[name=interests]',form):form.elements[k];f&&f.focus()};
+  $('[data-next]',form).addEventListener('click',()=>{const e=check1();if(Object.keys(e).length)return focusFirst(e);show(2);$('[name=interests]',form).focus({preventScroll:true});form.scrollIntoView({block:'start',behavior:'smooth'})});
+  $('[data-back]',form).addEventListener('click',()=>{show(1);form.elements.first_name.focus()});
+  form.addEventListener('change',e=>{if(e.target.name==='interests')setErr('interests','')});
+  form.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'&&!$('.enq-step[data-step="1"]',form).hidden){e.preventDefault();$('[data-next]',form).click()}});
+  // prefill
+  const pre=s=>{if(!SERV.includes(s))return;form.elements.service.value=s;const box=$(`[name=interests][value="${s}"]`,form);if(box)box.checked=true};
+  pre(qs.get('service'));
+  const t=window.mfTracking();Object.keys(t).forEach(k=>{if(form.elements[k])form.elements[k].value=t[k]});
+  if(qs.get('error'))status.textContent='Something in the form needs another look. Please check and send again.';
+  // service-card links: prefill without reloading when already on the homepage
+  $$('a[data-service]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();pre(a.dataset.service);history.replaceState(null,'','/?service='+a.dataset.service+'#contact');show(1);$('#contact').scrollIntoView({behavior:'smooth'});setTimeout(()=>form.elements.first_name.focus({preventScroll:true}),600)}));
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const e1=check1();if(Object.keys(e1).length){show(1);return focusFirst(e1)}
+    const e2=check2();if(Object.keys(e2).length)return focusFirst(e2);
+    const fd=new FormData(form),data={};
+    for(const [k,v] of fd.entries()){if(k==='interests')(data.interests=data.interests||[]).push(v);else data[k]=v}
+    data.page=location.href.slice(0,300);
+    form.classList.add('sending');status.textContent='';
+    try{
+      const r=await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+      const j=await r.json().catch(()=>({}));
+      if(r.ok&&j.ok){location.href=j.next||('/thanks?name='+encodeURIComponent(data.first_name));return}
+      if(j.errors){Object.entries(j.errors).forEach(([k,m])=>setErr(k,m));const s1=['first_name','business','email','mobile','industry'].some(k=>j.errors[k]);show(s1?1:2);focusFirst(j.errors)}
+      status.textContent=j.error||'Please check the highlighted fields.';
+    }catch(err){status.textContent='We couldn\'t send that just now. Please try again, or email hello@mainframe.kiwi.'}
+    form.classList.remove('sending');
+  });
+}
+
+// sticky mobile CTA: after the hero, hidden while the form is on screen
+const sticky=$('.sticky-cta'),hero=$('.hero'),contact=$('#contact');
+if(sticky&&hero&&contact&&'IntersectionObserver' in window){
+  let pastHero=false,atContact=false;const upd=()=>{const on=pastHero&&!atContact;sticky.classList.toggle('show',on);document.body.classList.toggle('has-sticky',on||pastHero)};
+  new IntersectionObserver(([en])=>{pastHero=!en.isIntersecting&&en.boundingClientRect.top<0;upd()}).observe(hero);
+  new IntersectionObserver(([en])=>{atContact=en.isIntersecting;upd()},{rootMargin:'0px 0px -10% 0px'}).observe(contact);
+  sticky.addEventListener('click',()=>{const f=$('#enquiry');if(f)setTimeout(()=>f.elements.first_name.focus({preventScroll:true}),700)});
+}
+})();

@@ -1,0 +1,9 @@
+{
+  "name": "mainframe-site",
+  "private": true,
+  "description": "Static site with Vercel functions. nodemailer is used only by api/enquiry.js.",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "nodemailer": "^7.0.13"
+  }
+}
