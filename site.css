@@ -276,6 +276,7 @@ section.alt{background:linear-gradient(#020302,#000);border-block:1px solid var(
 .fp-more-link{display:inline-flex;align-items:center;gap:8px;font:500 13px/1.2 var(--mono);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:3px;transition:border-color .25s}
 .fp-more-link .arr{display:inline-grid;color:var(--green)}.fp-more-link .arr svg{width:13px;height:13px}
 .fp-more-link:hover{border-color:var(--green)}
+.fp-sub{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}.fp-sub a{font:500 12px/1 var(--mono);text-decoration:none;padding:7px 12px;border:1px solid var(--line2);border-radius:999px;color:var(--text);transition:border-color .25s,color .25s}.fp-sub a:hover{border-color:var(--green);color:var(--green)}
 .fp-all{display:flex;justify-content:center;margin:44px 0 0}
 
 /* ===== Portfolio page ===== */
