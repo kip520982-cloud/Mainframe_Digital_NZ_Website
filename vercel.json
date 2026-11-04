@@ -65,6 +65,11 @@
       "source": "/industries/:path*",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/portfolio/my-follow-ups",
+      "destination": "/portfolio/real-estate-crm",
+      "statusCode": 308
     }
   ]
 }
