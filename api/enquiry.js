@@ -1,9 +1,8 @@
 // Public enquiry + scorecard endpoint for the marketing site.
 // Deliberately standalone: it does not use lib/access.cjs or anything from the /admin portal.
 //
-// Env (all optional; nothing breaks if they are missing):
-//   SMTP_USER, SMTP_PASS   Google Workspace mailbox + app password. When missing, submissions are
-//                          logged to the function logs and the visitor still gets a success response.
+// Env:
+//   SMTP_USER, SMTP_PASS   Google Workspace mailbox + app password. Required to accept submissions.
 //   SMTP_HOST, SMTP_PORT   default smtp.gmail.com:465 (override only for local testing)
 //   ENQUIRY_TO             default kieran@mainframe.kiwi
 //   LEADS_WEBHOOK_URL      optional free lead log, e.g. a Google Apps Script web app that appends to a Sheet
@@ -212,8 +211,11 @@ module.exports = async (req, res) => {
   let mail;
   try { mail = await sendMail(d, origin); } catch (e) { mail = { sent: false, reason: 'smtp-error: ' + e.message }; }
   const hook = await webhook(d);
-  if (!mail.sent) console.log('[enquiry] NOT EMAILED (' + mail.reason + '). Full submission:\n' + JSON.stringify(d, null, 2));
-  else console.log('[enquiry] emailed', JSON.stringify({ type: d.type, to: TO(), lead: mail.lead, webhook: hook, received: d.received }));
+  if (!mail.sent) {
+    console.error('[enquiry] email delivery failed', JSON.stringify({ type: d.type, reason: mail.reason, webhook: hook, received: d.received }));
+    return reply(res, 503, { ok: false, error: 'We could not email your enquiry. Please email kieran@mainframe.kiwi directly.' });
+  }
+  console.log('[enquiry] emailed', JSON.stringify({ type: d.type, to: TO(), lead: mail.lead, webhook: hook, received: d.received }));
   if (hook !== 'not-configured' && hook !== 'ok') console.log('[enquiry] lead webhook ' + hook);
 
   const thanks = d.type === 'enquiry' ? '/thanks?name=' + encodeURIComponent(d.first_name) : '/thanks?from=scorecard&name=' + encodeURIComponent(d.first_name);
