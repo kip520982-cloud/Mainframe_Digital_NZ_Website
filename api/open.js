@@ -1,9 +1,8 @@
-const { DEMOS, session, token, respond } = require('../lib/access.cjs');
+const { DEMOS, token, respond } = require('../lib/access.cjs');
 module.exports = (req, res) => {
   if (req.method !== 'GET') return respond(res, 405, { error: 'Method not allowed' });
-  const current = session(req);
   const id = req.query.demo;
-  if (!current || !DEMOS[id] || (current.role !== 'owner' && current.demo !== id)) return respond(res, 403, { error: 'Access denied' });
+  if (!DEMOS[id]) return respond(res, 404, { error: 'Unknown demo' });
   if (!DEMOS[id].url) return respond(res, 409, { error: 'This demo is not yet online' });
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Referrer-Policy', 'no-referrer');
