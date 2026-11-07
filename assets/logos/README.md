@@ -13,5 +13,8 @@ Used nominatively to show tools we connect; see the disclaimer on the homepage.
 | claude.svg | simple-icons 16.35.0 (claude) | Claude |
 | chatgpt.svg | simple-icons 15.x (openai) | ChatGPT |
 | twilio.svg | simple-icons 15.x (twilio) | Twilio |
+| hubspot.svg | simple-icons (hubspot) | HubSpot |
+| salesforce.svg | simple-icons (salesforce) | Salesforce |
+| copilot.svg | Wikimedia Commons, Microsoft 365 Copilot one-color icon (public domain file) | Microsoft Copilot |
 
 Notes: microsoft, docusign (removed after simple-icons 12) and openai, twilio (removed after 15) come from older releases of the package.
