@@ -22,8 +22,10 @@
   <meta name="twitter:image" content="https://mainframe.kiwi/og-image.png">
   <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="/site.css">
+  <link rel="stylesheet" href="/assets/hero3d/hero3d.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mainframe Digital","url":"https://mainframe.kiwi","logo":"https://mainframe.kiwi/brand/icon-light@2x.png","email":"kieran@mainframe.kiwi","founder":{"@type":"Person","name":"Kieran Stapleton","jobTitle":"Founder"},"address":{"@type":"PostalAddress","addressLocality":"Auckland","addressCountry":"NZ"},"areaServed":"NZ","identifier":{"@type":"PropertyValue","propertyID":"NZBN","value":"9429054046085"}}</script>
   <script defer src="/site.js"></script>
+  <script type="module" src="/assets/hero3d/hero3d.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -103,98 +105,64 @@
           </div>
         </div>
         <div class="hero-visual reveal" style="--d:250ms">
-          <div class="terminal hw" role="group" aria-roledescription="carousel" aria-label="Examples of what we build">
-            <div class="top"><b class="dot"></b><b class="dot"></b><b class="dot"></b><span class="hw-title">crm — pipeline</span></div>
-            <div class="hw-stage"><div class="hw-canvas">
-              <div class="hw-slide on" data-label="Your custom CRM" data-sub="Custom business applications" data-title="crm — pipeline" role="group" aria-roledescription="slide" aria-label="1 of 5: Your custom CRM">
-                <div class="crm">
-                  <aside class="crm-side" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></aside>
-                  <div class="crm-main">
-                    <div class="crm-head"><b>Pipeline</b><span class="crm-search">Search contacts</span><span class="crm-new">+ New deal</span></div>
-                    <div class="crm-stats"><div><small>Contacts</small><b>1,284</b></div><div><small>Open deals</small><b>18</b></div><div><small>Won this month</small><b class="g">6</b></div></div>
-                    <div class="crm-board">
-                      <div class="crm-col"><p>New <em>4</em></p><div class="crm-card"><b>Harbourside Dental</b><small>Website enquiry · today</small></div><div class="crm-card"><b>Kauri Builders</b><small>Phone call · 1d</small></div></div>
-                      <div class="crm-col"><p>Quoted <em>3</em></p><div class="crm-card"><b>Tui Street Cafe</b><small>Quote sent · 2d</small></div><div class="crm-card move"><b>Ridgeline Physio</b><small>Follow-up booked</small></div></div>
-                      <div class="crm-col"><p>Won <em>6</em></p><div class="crm-card won"><b>Southern Freight</b><small><span class="dotg"></span>Signed · invoice raised</small></div><div class="crm-card"><b>Bayview Motors</b><small>Onboarding</small></div></div>
+          <div id="mf3d">
+            <section class="scene-column" aria-label="Interactive 3D CRM demonstration">
+              <div class="scene-topline">
+                <span>CRM_COMMAND_DECK</span>
+                <span class="scene-live"><i></i> LIVE MODEL / 01</span>
+              </div>
+              <div class="scene-wrap" id="scene-wrap">
+                <div class="scene-aura" aria-hidden="true"></div>
+                <div class="scene-fallback" id="scene-fallback" aria-hidden="true">
+                  <div class="fallback-window">
+                    <div class="fallback-bar"><span></span><span></span><span></span><b>crm — pipeline</b></div>
+                    <div class="fallback-body">
+                      <div class="fallback-sidebar"></div>
+                      <div class="fallback-content">
+                        <strong>Pipeline</strong>
+                        <div class="fallback-metrics"><i>1,284</i><i>18</i><i>6</i></div>
+                        <div class="fallback-columns"><i></i><i></i><i></i></div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="hw-slide" data-label="Smart websites" data-sub="Landing page with a lead form" data-title="yourbusiness.co.nz" role="group" aria-roledescription="slide" aria-label="2 of 5: Smart websites" aria-hidden="true">
-                <div class="web">
-                  <div class="web-body">
-                    <div class="web-nav"><b><i class="web-logo" aria-hidden="true"></i>Your website</b><span>Services</span><span>Reviews</span><span>Contact</span></div>
-                    <div class="web-hero">
-                      <div class="web-copy"><small>AUCKLAND · 7 DAYS</small><h4>Same-day plumbing, booked in minutes.</h4><p>Tell us what's wrong and we'll confirm a time by text.</p><span class="web-rating">★★★★★ <em>Local, licensed, insured</em></span></div>
-                      <div class="web-form"><b>Get a quote</b><span class="in">Name<i>Sam Taylor</i></span><span class="in">Mobile<i>021 555 0142</i></span><span class="in">What do you need?<i>Leaking hot water cylinder</i></span><span class="web-btn">Request a call back</span></div>
-                    </div>
-                    <div class="web-toast"><span class="dotg"></span>New lead → CRM · reply sent</div>
+                <div id="scene" role="img" aria-label="A two-sided three-dimensional CRM dashboard. Select a deal to run its automated follow-up workflow."></div>
+                <div class="scene-corner corner-tl" aria-hidden="true"></div>
+                <div class="scene-corner corner-br" aria-hidden="true"></div>
+                <div class="axis-label" aria-hidden="true">X / 04.28&nbsp;&nbsp; Y / 12.06</div>
+                <button class="deal-hint" id="deal-hint" type="button"><span></span>Click Harbourside Dental to run its workflow</button>
+                <section class="workflow-panel" id="workflow-panel" aria-label="Workflow run" hidden>
+                  <div class="workflow-heading">
+                    <div><span class="workflow-kicker">LIVE WORKFLOW / SAMPLE</span><h2>Harbourside Dental</h2></div>
+                    <button id="close-workflow" type="button" aria-label="Close workflow"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="1.4"></path></svg></button>
                   </div>
-                </div>
+                  <p>Website enquiry received <span>just now</span></p>
+                  <ol class="workflow-steps">
+                    <li data-step="0"><i>01</i><div><strong>Enquiry captured</strong><span>Form data received</span></div><b></b></li>
+                    <li data-step="1"><i>02</i><div><strong>Contact created</strong><span>CRM record updated</span></div><b></b></li>
+                    <li data-step="2"><i>03</i><div><strong>Follow-up drafted</strong><span>Personalised by AI</span></div><b></b></li>
+                    <li data-step="3"><i>04</i><div><strong>Booking held</strong><span>Calendar updated</span></div><b></b></li>
+                  </ol>
+                  <div class="workflow-status" id="workflow-status"><span></span>Running workflow…</div>
+                </section>
               </div>
-              <div class="hw-slide" data-label="Workflow automation" data-sub="Your tools, wired together" data-title="automation — live" role="group" aria-roledescription="slide" aria-label="3 of 5: Workflow automation" aria-hidden="true">
-                <div class="wire">
-                <svg class="wire-svg" viewBox="0 0 460 290" aria-hidden="true" focusable="false">
-                <text class="wl" x="14" y="17">SYSTEMS YOU ALREADY RUN</text>
-                <text class="wl" x="300" y="58">WORK THAT GETS DONE</text>
-                <path class="wb" d="M138 40C172 40 168 148 188 148"/><path class="wf" style="--k:0" d="M138 40C172 40 168 148 188 148"/>
-                <path class="wb" d="M138 76C172 76 168 148 188 148"/><path class="wf" style="--k:1" d="M138 76C172 76 168 148 188 148"/>
-                <path class="wb" d="M138 112C172 112 168 148 188 148"/><path class="wf" style="--k:2" d="M138 112C172 112 168 148 188 148"/>
-                <path class="wb" d="M138 148C172 148 168 148 188 148"/><path class="wf" style="--k:3" d="M138 148C172 148 168 148 188 148"/>
-                <path class="wb" d="M138 184C172 184 168 148 188 148"/><path class="wf" style="--k:4" d="M138 184C172 184 168 148 188 148"/>
-                <path class="wb" d="M138 220C172 220 168 148 188 148"/><path class="wf" style="--k:5" d="M138 220C172 220 168 148 188 148"/>
-                <path class="wb" d="M138 256C172 256 168 148 188 148"/><path class="wf" style="--k:6" d="M138 256C172 256 168 148 188 148"/>
-                <path class="wb" d="M256 148C276 148 274 82 300 82"/><path class="wf out" style="--k:0" d="M256 148C276 148 274 82 300 82"/>
-                <path class="wb" d="M256 148C276 148 274 122 300 122"/><path class="wf out" style="--k:1" d="M256 148C276 148 274 122 300 122"/>
-                <path class="wb" d="M256 148C276 148 274 162 300 162"/><path class="wf out" style="--k:2" d="M256 148C276 148 274 162 300 162"/>
-                <path class="wb" d="M256 148C276 148 274 202 300 202"/><path class="wf out" style="--k:3" d="M256 148C276 148 274 202 300 202"/>
-                <g class="wn" style="--k:0"><rect x="14" y="27" width="124" height="26" rx="5"/><text x="25" y="44">MICROSOFT 365</text></g>
-                <g class="wn" style="--k:1"><rect x="14" y="63" width="124" height="26" rx="5"/><text x="25" y="80">MICROSOFT COPILOT</text></g>
-                <g class="wn" style="--k:2"><rect x="14" y="99" width="124" height="26" rx="5"/><text x="25" y="116">GMAIL / OUTLOOK</text></g>
-                <g class="wn" style="--k:3"><rect x="14" y="135" width="124" height="26" rx="5"/><text x="25" y="152">HUBSPOT</text></g>
-                <g class="wn" style="--k:4"><rect x="14" y="171" width="124" height="26" rx="5"/><text x="25" y="188">SALESFORCE</text></g>
-                <g class="wn" style="--k:5"><rect x="14" y="207" width="124" height="26" rx="5"/><text x="25" y="224">XERO</text></g>
-                <g class="wn" style="--k:6"><rect x="14" y="243" width="124" height="26" rx="5"/><text x="25" y="260">MYOB</text></g>
-                <g class="wo" style="--k:0"><rect x="300" y="68" width="146" height="28" rx="5"/><circle cx="312" cy="82" r="3"/><text x="322" y="86">LEAD ADDED TO CRM</text></g>
-                <g class="wo" style="--k:1"><rect x="300" y="108" width="146" height="28" rx="5"/><circle cx="312" cy="122" r="3"/><text x="322" y="126">FOLLOW-UP EMAIL SENT</text></g>
-                <g class="wo" style="--k:2"><rect x="300" y="148" width="146" height="28" rx="5"/><circle cx="312" cy="162" r="3"/><text x="322" y="166">JOB SCHEDULED</text></g>
-                <g class="wo" style="--k:3"><rect x="300" y="188" width="146" height="28" rx="5"/><circle cx="312" cy="202" r="3"/><text x="322" y="206">REPORT READY</text></g>
-                <circle class="hub-ring" cx="222" cy="148" r="42"/><circle class="hub" cx="222" cy="148" r="34"/><use href="#mf-mark" x="206" y="132" width="32" height="32"/><text class="wl hub-l" x="222" y="208" text-anchor="middle">MAINFRAME</text></svg>
-                  <div class="wire-run"><span class="k">EXAMPLE RUN</span><span class="m">MAINFRAME</span><span class="wire-txt">Outlook enquiry → lead added to HubSpot</span><span class="cursor"></span></div>
+              <div class="scene-console">
+                <div class="slide-indicator" aria-label="Automatic CRM presentation">
+                  <span class="slide-item active" data-view="pipeline" aria-current="true"><i>01</i>Pipeline</span>
+                  <span class="slide-item" data-view="automation" aria-current="false"><i>02</i>Automation</span>
+                  <span class="slide-item" data-view="integrations" aria-current="false"><i>03</i>Integrations</span>
                 </div>
+                <button class="reset-button" id="auto-toggle" type="button" aria-label="Pause automatic rotation" title="Pause automatic rotation" aria-pressed="true">
+                  <svg class="pause-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 5v10M13 5v10" stroke="currentColor" stroke-width="1.8"></path></svg>
+                  <svg class="play-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m7 5 8 5-8 5V5Z" stroke="currentColor" stroke-width="1.4"></path></svg>
+                </button>
               </div>
-              <div class="hw-slide" data-label="Your iOS &amp; Android app" data-sub="iOS &amp; Android apps" data-title="app — preview" data-frameless="" role="group" aria-roledescription="slide" aria-label="4 of 5: Your iOS and Android app" aria-hidden="true">
-                <div class="app">
-                  <div class="phone"><div class="notch"></div><div class="ph-screen">
-                    <div class="ph-status"><span>9:41</span><span>●●● ▮</span></div>
-                    <p class="ph-hi">Kia ora, Sam</p><h5>Your week</h5>
-                    <div class="ph-card hero-c"><small>NEXT BOOKING</small><b>Tue 10:30 am</b><span>Studio 2 · 60 min</span><em>Check in</em></div>
-                    <div class="ph-row"><i></i><div><b>Lesson notes</b><small>3 new from your coach</small></div></div>
-                    <div class="ph-row"><i></i><div><b>Progress</b><small>Level 2 · 64% complete</small></div></div>
-                    <div class="ph-row"><i></i><div><b>Messages</b><small>Booking confirmed</small></div></div>
-                    <div class="ph-tabs"><i class="on"></i><i></i><i></i><i></i></div>
-                  </div></div>
-                  <div class="app-push"><span class="dotg"></span><div><b>Booking confirmed</b><small>Tue 10:30 am · added to calendar</small></div></div>
-                  <div class="app-stores"><span>iOS</span><span>Android</span></div>
-                </div>
-              </div>
-              <div class="hw-slide" data-label="AI agents" data-sub="AI setup &amp; agents" data-title="assistant — chat" role="group" aria-roledescription="slide" aria-label="5 of 5: AI agents" aria-hidden="true">
-                <div class="chat">
-                  <div class="chat-head"><span class="dotg"></span><b>Ops assistant</b><small>Connected: Xero · Gmail · Calendar</small></div>
-                  <div class="msg me" style="--i:0">Can you chase last week's unpaid invoices?</div>
-                  <div class="msg ai" style="--i:1">Found 3 overdue invoices in Xero. I've drafted a friendly reminder for each. Send them now?</div>
-                  <div class="chips" style="--i:2"><span class="on">Send all 3</span><span>Review first</span></div>
-                  <div class="msg me" style="--i:3">Send all. And book a call with Kauri Builders.</div>
-                  <div class="msg ai typing" style="--i:4"><i></i><i></i><i></i></div>
-                  <div class="chat-in">Ask your assistant…<span>↵</span></div>
-                </div>
-              </div>
-            </div></div>
+              <div class="scene-help"><span>CLICK A DEAL</span><span>MOVE TO TILT</span><span>SCROLL TO ROTATE</span><span id="auto-hint">AUTO-SPIN ON</span></div>
+            </section>
+            <div class="toast" id="toast" role="status" aria-live="polite"></div>
+            <button id="explore-button" type="button" hidden aria-hidden="true" tabindex="-1"></button>
           </div>
-          <div class="float-card hw-label" aria-hidden="true"><span class="status-dot"></span><div><b>Your custom CRM</b><small>Custom business applications</small></div></div>
-          <div class="hw-ctrl"><span class="hw-n" aria-hidden="true">01 / 05</span><div class="hw-dots"><button type="button" aria-label="Show slide 1: Your custom CRM" aria-current="true"></button><button type="button" aria-label="Show slide 2: Smart websites"></button><button type="button" aria-label="Show slide 3: Workflow automation"></button><button type="button" aria-label="Show slide 4: Your iOS and Android app"></button><button type="button" aria-label="Show slide 5: AI agents"></button></div><button type="button" class="hw-pause" aria-label="Pause slideshow" aria-pressed="false"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9M11 3.5v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5l7 4.5-7 4.5z" fill="currentColor"/></svg></button></div>
         </div>
-      </div>
     </section>
 
     <!-- FACT STRIP (facts only, no invented numbers) -->
