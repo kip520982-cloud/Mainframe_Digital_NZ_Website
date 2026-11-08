@@ -514,7 +514,7 @@ html:not(.js) .enq-steps{display:none}
   .enq-actions .pill{flex:1;justify-content:space-between}
   .enq-free,.enq-status{text-align:left}
   .sc-band{padding-bottom:90px}
-  .ty-case{grid-template-columns:1fr}
+  .ty-case{grid-template-columns:minmax(0,1fr)}
   body.has-sticky{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 }
 @media (max-width:400px){.chks{grid-template-columns:1fr}}
