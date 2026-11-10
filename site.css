@@ -156,6 +156,9 @@ section.block{padding:120px 0}
 .js .reveal.in{opacity:1;transform:none;filter:none}
 .js .split .w{display:inline-block;opacity:0;transform:translateY(.5em);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--wi) * 55ms)}
 .js .split.in .w{opacity:1;transform:none}
+/* GSAP layer (site-gsap.js) drives this motion once loaded — kill the CSS transitions so inline tweening doesn't double-smooth */
+.gsap-on .reveal,.gsap-on .reveal.in{transition:none}
+.gsap-on .split .w,.gsap-on .split.in .w{transition:none}
 
 /* responsive */
 @media (max-width:980px){

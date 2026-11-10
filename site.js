@@ -14,7 +14,7 @@ $$('.split').forEach(el=>{let i=0;const walk=n=>{[...n.childNodes].forEach(c=>{i
 
 /* reveals */
 const items=$$('.reveal,.split');
-if(reduce||!('IntersectionObserver' in window)){items.forEach(el=>el.classList.add('in'))}
+if(reduce||!('IntersectionObserver' in window)||window.gsap){items.forEach(el=>el.classList.add('in'))}
 else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -10% 0px',threshold:.15});items.forEach(el=>io.observe(el))}
 
 /* card spotlight follows pointer */
