@@ -804,3 +804,10 @@ html:not(.js) .enq-steps{display:none}
   .j-path>li>b{font-size:17px}
   .j-path>li>small,.j-path .j-logos li,.fcard small,.j-result li,.j-mid p{font-size:14px}
 }
+/* Hero split: legacy carousel on small screens, 3D command deck on desktop */
+#hero-legacy{display:none}
+@media (max-width:980px){
+  #mf3d{display:none}
+  #hero-legacy{display:block}
+  .hero-visual #hero-legacy .terminal{box-shadow:0 30px 70px rgba(0,0,0,.75),0 0 0 8px #050605}
+}
